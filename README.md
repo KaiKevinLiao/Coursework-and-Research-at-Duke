@@ -2,6 +2,7 @@
 Kai Liao  
 M.A. Economics  
 Duke University  
+Email: <kai.liao@duke.edu>
 
 This is a category of some of my master coursework, RA work, and self-learning notes. I create this repository for the purpose of PhD application. It includes reading summaries, referee reports, codes for RA works, empirical problem sets, and machine learning projects.
 
