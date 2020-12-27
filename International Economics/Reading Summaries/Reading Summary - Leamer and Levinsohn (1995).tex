@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{makecell}
+\geometry{left=2.5cm,right=2cm,top=2cm,bottom=2.5cm}
+\titleformat*{\section}{\Median\bfseries}
+\title{Reading Summary - International Trade Theory: The Evidence}
+\author{kai.liao }
+\date{January 2020}
+
+\begin{document}
+
+\maketitle
+
+\noindent Leamer and Levinsohn (1995) publish a guide to finding empirical for international trade theory. They gave some essential messages to economists who want to build link between the theory and the data. The content of this paper is very comprehensive, but in this reading summary, I will only discuss Heckscher-Olin model and its link to empirical evidence.
+
+\section{Basic Setup}
+The classic 2 factors 2 sectors 2 countries Hecksher-Ohlin model requires following assumptions: 
+
+A1. Two factors (L\&K), Two goods(S\&C), S is "labor-intensive". $\frac{L_S}{K_C} > \frac{L_C}{K_C}$
+
+A2. Foreign is "labor abundant", home is "capital abundant". $\frac{\Bar{L^*}}{\Bar{K^*}}>\frac{\Bar{L}}{\Bar{K}}$
+
+A3. Goods can be traded freely, but labor and capital do not move between countries.
+
+A4. Technologies and preferences are same across countries.
+
+\noindent Example: \begin{equation*}
+\left\{
+             \begin{array}{lc}
+             Y_S = a_SL_S^\alpha K_S^{1-\alpha}\\
+             Y_C = a_CL_C^\alpha K_C^{1-\alpha}
+             \end{array}
+\right.
+s.to.
+\left\{
+             \begin{array}{lc}
+             K_C+K_S=\Bar{K}\\
+             L_C+L_S=\Bar{L}
+             \end{array}
+\right.
+\Longrightarrow PPF
+\end{equation*}
+
+\begin{equation*}
+\Longrightarrow
+             \text{autarky: }\left(\frac{P_C}{P_S}\right)^A<\left(\frac{P_C^*}{P_S^*}\right)^A
+             \text{, with trade: }\left(\frac{P_C}{P_S}\right)^A<\left(\frac{P_C}{P_S}\right)^W<\left(\frac{P_C^*}{P_S^*}\right)^A
+\end{equation*}
+
+$$\text{Home imports S and exports C}$$
+
+\section{Theorems}
+
+\begin{center}
+\begin{tabular}{ c c c }
+ \textbf{theorems} & \textbf{relation between} & \textbf{main results}\\
+ The Rybeyzinski theorem & endowments and production & \thead{quantity of one factor increase\\$\Rightarrow$output of "intensive" good increase\\output of the other good decrease} \\ 
+ The Stoplper-Samuelson theorem & \thead{externally determined price and \\internal factor price} & \thead{a good price increases \\$\Rightarrow$ price of intensive factor increase\\price of other factor decrease} \\  
+ FPE etc. & factor supply and factor price & \thead{factor price insensitive factor supply (FPI)\\factor prices equal across countries (FPE)\\factor price ajustment (FPA)\\factor price converge (FPC)}
+\end{tabular}
+\end{center}
+
+
+
+\end{document}
