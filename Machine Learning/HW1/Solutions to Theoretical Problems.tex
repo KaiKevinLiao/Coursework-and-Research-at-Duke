@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\def\P(#1){\Phelper#1|\relax\Pchoice(#1)}
+\def\Phelper#1|#2\relax{\ifx\relax#2\relax\def\Pchoice{\Pone}\else\def\Pchoice{\Ptwo}\fi}
+\def\Pone(#1){\Pr\left( #1 \right)}
+\def\Ptwo(#1|#2){\Pr\left( #1 \mid #2 \right)}
+\def\Pr{\mathbf{Pr}}
+\geometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2.5cm}
+\usepackage{graphicx}
+\graphicspath{ {C:/Users/kaike/OneDrive/Desktop/Machine Learning/HW1/} }
+
+\title{Machine Learning - HW1}
+\author{Kai Liao}
+\date{August 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Information Theory}
+\subsection{}
+If every possible outcomes of $X$ have the same probability $1/n$, the entropy of $X$ reach its maximum. 
+The maximum is:
+\begin{equation}
+    H(X) = -\sum_{i = 1}^n \frac{1}{n} \log_2 \frac{1}{n} = \log_2 n
+\end{equation}
+
+\subsection{}
+\begin{equation}
+\begin{split}
+    I(X,X) &= H(X) - H(X|X) \\
+    &= H(X) - \sum_{i = 1}^n H(X | X=x_i)\\
+    &= H(X) - 0\\
+    &= H(X)
+\end{split}
+\end{equation}
+
+\subsection{}
+\begin{equation}
+\begin{split}
+    H(Y|X) &= \sum_{i = 1}^n H(Y|X=x_i)p(x_i)\\
+    &= \sum_{i = 1}^n p(x_i) \left[ - \sum_{j = 1}^m p(y_j|x_i)\log_2 p(y_j|x_i) \right]\\
+    &= - \sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j) \log_2 p(y_j|x_i)\\
+    &= - \sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j) \log_2 \frac{p(x_i,y_j)}{p(x_i)} \\
+\end{split}
+\end{equation}
+\begin{equation}
+\begin{split}
+    I(X,Y) &= H(X) - H(X|Y)\\
+    &= -\sum_{i = 1}^n p(x_i) \log_2 p(x_i) + \sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j) \log_2 \frac{p(x_i,y_j)}{p(y_i)}\\
+    &= -\sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j) \log_2 p(x_i) + \sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j) \log_2 \frac{p(x_i,y_j)}{p(y_i)}\\
+    &= -\sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j) \left[ \log_2 p(x_i) -\log_2 \frac{p(x_i,y_j)}{p(y_i)} \right]\\
+    &= -\sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j)\log_2\frac{p(x_i) p(y_i)}{p(x_i,y_j)}\\
+\end{split}
+\end{equation}
+By Jensen's inequality: 
+\begin{equation}
+    \begin{split}
+        &-\sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j)\log_2\frac{p(x_i) p(y_i)}{p(x_i,y_j)}\\
+        \geq & -\log_2 \sum_{i = 1}^n \sum_{j = 1}^m p(x_i,y_j)\frac{p(x_i) p(y_i)}{p(x_i,y_j)}\\
+        = & -\log_2 \sum_{i = 1}^n \sum_{j = 1}^m p(x_i) p(y_i)\\
+        = & 0
+    \end{split}
+\end{equation}
+
+\subsection{}
+The probability of go fishing is:
+\begin{equation}
+    p(y = 1) = 9/14
+\end{equation}
+Therefore,
+\begin{equation}
+    H(X) = -( \frac{9}{14}\log_2 \frac{9}{14} + \frac{5}{14}\log_2 \frac{5}{14}) = 0.9403
+\end{equation}
+\begin{equation*}
+    A_1 = \text{Outlook}, A_2 = \text{Humidity}, A_3 = \text{Windy}
+\end{equation*}
+\begin{equation*}
+    p(y = yes, a_1 = sunny) = \frac{3}{14}, p(y = yes, a_1 = rainy) = \frac{6}{14},p(y = no, a_1 = sunny) = \frac{2}{14}, p(y = no, a_1 = rainy) = \frac{3}{14}
+\end{equation*}
+
+\begin{equation*}
+    p(a_1 = sunny) = \frac{5}{14}, p(a_1 = rainy) = \frac{9}{14}
+\end{equation*}
+
+\begin{equation}
+\begin{split}
+    H(Y|A_1)     &= - \sum_{i = 1}^n \sum_{j = 1}^m p(a_i,y_j) \log_2 \frac{p(a_i,y_j)}{p(a_i)} \\
+    &= -(\frac{3}{14} \times \log_2 \frac{\frac{3}{14}}{\frac{5}{14}} + \frac{6}{14} \times \log_2 \frac{\frac{6}{14}}{\frac{9}{14}} + \frac{2}{14} \times \log_2 \frac{\frac{2}{14}}{\frac{5}{14}} + \frac{3}{14} \times \log_2 \frac{\frac{3}{14}}{\frac{9}{14}}) \\
+    &= 0.9371
+\end{split}
+\end{equation}
+Similarly
+
+\begin{equation*}
+    p(y = yes, a_2 = normal) = \frac{6}{14}, p(y = yes, a_2 = high) = \frac{3}{14},p(y = no, a_2 = normal) = \frac{1}{14}, p(y = no, a_2 = high) = \frac{4}{14}
+\end{equation*}
+
+\begin{equation*}
+    p(a_2 = normal) = \frac{7}{14}, p(a_2 = high) = \frac{7}{14}
+\end{equation*}
+
+\begin{equation}
+\begin{split}
+    H(Y|A_2)     &= - \sum_{i = 1}^n \sum_{j = 1}^m p(a_i,y_j) \log_2 \frac{p(a_i,y_j)}{p(a_i)} \\
+    &= -(\frac{6}{14} \times \log_2 \frac{\frac{6}{14}}{\frac{7}{14}} + \frac{3}{14} \times \log_2 \frac{\frac{3}{14}}{\frac{7}{14}} + \frac{1}{14} \times \log_2 \frac{\frac{1}{14}}{\frac{7}{14}} + \frac{4}{14} \times \log_2 \frac{\frac{4}{14}}{\frac{7}{14}}) \\
+    &= 0.7885
+\end{split}
+\end{equation}
+
+\begin{equation*}
+    p(y = yes, a_3 = true) = \frac{3}{14}, p(y = yes, a_3 = false) = \frac{6}{14},p(y = no, a_3 = true) = \frac{3}{14}, p(y = no, a_3 = false) = \frac{2}{14}
+\end{equation*}
+
+\begin{equation*}
+    p(a_3 = true) = \frac{6}{14}, p(a_3 = false) = \frac{8}{14}
+\end{equation*}
+
+\begin{equation}
+\begin{split}
+    H(Y|A_3)     &= - \sum_{i = 1}^n \sum_{j = 1}^m p(a_i,y_j) \log_2 \frac{p(a_i,y_j)}{p(a_i)} \\
+    &= -(\frac{3}{14} \times \log_2 \frac{\frac{3}{14}}{\frac{6}{14}} + \frac{6}{14} \times \log_2 \frac{\frac{6}{14}}{\frac{8}{14}} + \frac{3}{14} \times \log_2 \frac{\frac{3}{14}}{\frac{6}{14}} + \frac{2}{14} \times \log_2 \frac{\frac{2}{14}}{\frac{8}{14}}) \\
+    &= 0.8922
+\end{split}
+\end{equation}
+
+\begin{equation}
+    I(Y, A_1) = 0.9403-0.9371 = 0.0032,
+    I(Y, A_2) = 0.9403-0.7885 = 0.1518,
+    I(Y, A_3) = 0.9403-0.8922 = 0.0481,
+\end{equation}
+I would split feature humidity first.
+
+\section{Decision Trees}
+\subsection{}
+Using the formula provide by (1), we can calculate the entropy for each nodes.
+\begin{equation}
+    H(X_{Normal} | A_1) = -(1/7 \log_2 1/3 + 2/7 \log_2 2/3) = 0.3936 = H(X_{Normal} | A_2)
+\end{equation}
+Therefore, the information gain at this node is exactly the same. We split on outlook.
+\begin{equation}
+    H(X_{High} | A_1) = 0.979 >  H(X_{High} | A_2) = 0.964
+\end{equation}
+Therefore, the information gain for splitting on windy is greater. We split on windy. \\
+
+\includegraphics[width=\textwidth]{31fixed.png}
+The error rate in the training set is 1/7 and the error rate in the test set is 2/5.
+
+\subsection{}
+\includegraphics[width=\textwidth]{32fixed.png}
+The error rate in the training set is 3/14 and the error rate in the testing set is 1/5. The test performance increase. The error rate for the testing set decrease. It could be that pruning solve the over-fitting problem, or it could also be a random event because of sampling. 
+
+\subsection{}
+\begin{equation}
+    G(X) = 2 \times 9/14 \times 5/14 = 0.459
+\end{equation}
+
+\begin{equation}
+\begin{split}
+    G(X | A_1) &= 9/14 (2 \times 6/9 \times 3/9) + 5/14 (2 \times 3/5 \times 2/5) = 0.459\\
+\end{split}
+\end{equation}
+Similarly,
+$$G(X | A_2) = 0.367$$
+$$G(X | A_3) = 0.428$$
+Therefore, we firstly split on humidity.
+$$G(X_{Normal} | A_1) = 0.196 = G(X_{Normal} | A_3)$$
+We split on Outlook for normal humidity node.
+$$G(X_{High} | A_1) = 0.486 > G(X_{High} | A_3) = 0.476$$
+We split on windy for high humidity node.
+
+\textbf{Therefore, the decision tree is exactly the same as (2.1). The training error is 2}\\
+
+I use [True, False] to label the error of tree nodes as follow:\\
+\includegraphics[width=\textwidth]{33.png}
+After pruning, the tree is:\\
+\includegraphics[width=\textwidth]{34.png}
+\textbf{Therefore the training error is 4. The difference between the original set is 2.}
+
+\section{Programming}
+\textbf{\textit{PLEASE FIND THE ANSWERS TO THIS PART IN FOLLOWING PYTHON CODES AND MARKDOWNS}}
+
+\end{document}
