@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=3.5cm,right=3.5cm,top=2cm,bottom=2.5cm}
+
+\title{Reading Summary - Kovak}
+\author{kai.liao }
+\date{April 2020}
+
+\begin{document}
+
+\maketitle
+
+This paper developed a theoretical and empirical method to measure the effect of Brazil trade liberalization
+on regional wage. The empirical specification is given by
+\begin{equation}
+    d\ln{w_r} = \gamma_0 + \gamma_1RTC_r +\epsilon_r
+\end{equation}
+where $RTC_r$ is the region-level tariff change given by
+\begin{equation}
+    RTC_r = \sum_{i \neq N}\beta_{ri}d\ln{(1+\tau_i)}
+\end{equation}
+where
+\begin{equation}
+    \beta_{ri} = \frac{\lambda_{ri}\frac{\sigma_{ri}}{\theta_i}}{\sum_{j\neq N}\lambda_{rj}\frac{\sigma_{rj}}{\theta_j}}
+\end{equation}
+For the purpose of estimation, he set $\sigma = 1$.
+The model also give that
+\begin{equation}
+    \hat{w_r}=\sum_i \beta_{ri}\hat{P_i}
+\end{equation}
+This equation shows that the proportional change in the wage is a weighted average of the proportional price changes. As stated in the paper: if a region’s workers are relatively highly concentrated in a given industry, then the region’s wages will be heavily influenced by price changes in that regionally important industry.
+
+The idea of this paper, especially the introduction of \textit{RTC}, provides an approach to further estimate the effect of Brazil trade liberalization on other outcome variables, for example, unemployment rates of different sectors and labor mobility. And the next question to ask is how the Brazil trade liberalization lead to these outcomes.
+\end{document}
