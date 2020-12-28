@@ -1,0 +1,33 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\geometry{left=4cm,right=4cm,top=3cm,bottom=2.5cm}
+\title{Reading Summary - Dix-Carneiro and Kovak (2017)}
+\author{kai.liao }
+\date{April 2020}
+
+\begin{document}
+
+\maketitle
+This paper studies the dynamic of trade liberalization's effects on Brazilian local market. They find increasing effects on regional wages, which are inconsistent with what conventional spatial equilibrium models predict. These effects is further explained by slow capital adjustment and agglomeration economies.
+\section{Empirical Specification and Main Results}
+The empirical specification follows Kovak's (2003) definition of regional tariff reductions (RTC).
+\begin{equation}
+    y_{rt} - y_{r, 1991} = \theta_t RTR_r \alpha_{st} + \gamma_t(y_{r, 1990}-y_{r, 1986}) + \epsilon_{rt}
+\end{equation}
+The outcome variable are employment and earning.
+The parameter $\theta$ recover in medium run (3-4 years) after the shock, and then continue to go down in the next 10-15 years. This pattern shows an increasing effects on regional wages and employment. Though this pattern is not consistent with spatial equilibrium models, it is consistent with Dix-Carneiro (2015) counterfactual simulation with 5\% annual capital mobility.
+
+After having these main results, the authors conducted several robustness test, e.g. pre-trends, and rule out some confounders, e.g. China's effect.  
+
+\section{Mechanism}
+There are several mechanisms that can explain the increasing effects on labor markets, namely urban decline, Unobserved worker heterogeneity, and slow growth of imports. The authors rule out these mechanisms because they either predict wrong trajectory in the long run or happen later than the movement of outcome variables. The authors then turn their eyes on the importance of dynamic labor demand, agglomeration economies (Kline and Moretti, 2014) and slow capital adjustment (Dix-Carneiro, 2014). The evidence of agglomeration economies come from the reduce form estimation as equation (2). The result ($\gamma_2 < 0 $) indicates the structural parameter, elasticity agglomeration, is positive, i.e., agglomeration economies are present. 
+\begin{equation}
+    \hat{L_{ri}} = \gamma_0 +\gamma_1\hat{P_i} +\gamma_2RTR_r + \epsilon_{ri}
+\end{equation}
+
+
+\end{document}
