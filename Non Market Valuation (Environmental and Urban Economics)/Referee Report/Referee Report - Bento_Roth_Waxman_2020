@@ -1,0 +1,123 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\DeclareMathOperator*{\argmin}{\arg\!\min\:}
+\DeclareMathOperator*{\argmax}{\arg\!\max\:}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{bbm}
+\usepackage{minted}
+\geometry{left=2cm,right=2cm,top=3cm,bottom=2.5cm}
+
+\title{Referee Report - Bento Roth Waxman 2020}
+\author{Kai Liao }
+\date{October 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary}
+This paper introduces the value of urgency to explain the non-constant willingness-to-pay for time savings. By using the account-level and repeated data of drivers using ExpressLines, this paper conducts individual-level hedonic estimation and separates the value of time saves and the value of urgency. The theoretical base of the estimation is given by
+\begin{equation}
+C<\left(P_{E}-P_{R}\right)\left[R_{O T}-R_{L}\right]+\theta \cdot E\left[T^{R}-T^{E}\right]
+\end{equation}
+where $P_{R}$ and $P_{E}$ denote the probability of arriving on time if the driver chooses the regular, untolled lane and ExpressLanes, respectively, and $T$ denotes time commuting, $\theta$ the value of time, and $R_{O T}$ and $R_{L}$ the gross
+benefits of arriving on time and late, respectively, where $R_{O T}>R_{L}$. Therefore, the regression framework is given by \begin{equation}
+\text {toll}_{a, s, t}=\delta+\theta E\left[T T_{a, s, t}\right]+\gamma \text {Reliab}_{s, t}+\varepsilon_{a, s, t}
+\end{equation}
+for all samples, and 
+\begin{equation}
+\text { toll }_{a, s, t}=\delta_{a}+\theta_{a} T T_{a, s, t}+\gamma_{a} \text { Reliab }_{s, t}+\varepsilon_{a, s, t}
+\end{equation}
+for individual-level samples.
+
+The constant value of $\delta$ in these estimations give us measures of the value of urgency. Specifically,$\delta = 2.84$ for the equation (2) and $E[\delta_{a}] = 3.24$ for the equation (3), suggesting that there is a value of urgency. 
+
+This paper also addressses some threats to identification. The first threat is the measurement error in travel time savings. This paper uses instrumental variables including average time savings
+one hour, one week and two weeks after the trip by hour of day, day of week and
+road segment to partly mitigate this concern. Another threat is the time-invariant unobserved attributes of ExpresLanes. As we can see from equation (2) and (3), all effects that are non-parallel to time saved and reliability will have some parts captured by $\delta$. To address this problem, this paper shows that the regression on weekend data do not show large $\delta$, which infers that $\delta$ mostly caused by the urgency that people want to avoid penalties of being late.
+
+Lastly, the paper suggests that value of urgency have
+fundamental implications for cost-benefit analysis of road infrastructure projects. 
+For example, this paper concludes that the ExpressLanes project generate \$1.31 million from February 22nd, 2013 to December 31st, 2013, while the benefits would only be \$221,363 if we only consider the value of time. 
+
+\section{Contribution}
+The most important contribution of this paper is to provides a theoretical explanation to the non-constant willingness to pay for time by introducing the value of urgency. And the empirical method gives an estimation of the value of urgency for morning peak time in LA.
+
+\section{The Main Concerns}
+\subsection{External Validity}
+Although this paper provides a very significant and large estimation of the value of urgency, I may argue that this result would not be useful for any other settings. Its implications for cost benefit analysis are not as important as the paper states.
+
+This paper suggests that the tremendous amount of value of urgency is an important part of benefit of road infrastructure projects. This ex-ante assessments of the benefit of the ExpressLanes base on a implicit assumption: without the ExpressLanes, people who choose to use the Expresslanes would suffer penalties for being late and these penalties are equal to the value of urgency measured in this paper. However, people would adjust their behaviors base on the options of transportation they have. Without a Expresslanes as an 'insurance' from congestion, people would wake up earlier to avoid penalties for being late. In this case, the construction of Expresslanes is not creating the value of urgency, it is creating the value of more "sleep", or just the value of leisure time if people choose to sleep earlier to maintain sufficient sleep. To resolve this concern, this paper might need to provide some evidence that shows people stick with their life styles before and after the construction.
+
+This concern hurts the external validity of value of urgency. The authors try to imply that value of urgency can be used to measure the cost of congestion. However, if the the commuting time is constant every day, with or without congestion, people will adjust their behavior to avoid penalties for being late. Therefore, the value of urgency may only arise when there is an unexpected long commute time due to a unusual traffic congestion.
+
+\subsection{Sample Selection}
+
+There are two level of sample sample selection in this paper, account level and trip level. Both of these selections create threats to the identification.
+
+Firstly, this paper neglects people without ExpressLanes account. These people may have relatively low value of urgency. Therefore, the results of this paper cannot be inferred to general population.
+
+Secondly, the trips of ExpressLanes may only capture people who have abnormal high value of urgency on a specific day. This paper assumes that each account holder has their own value of urgency,
+value of time, and value of reliability. However, the value of urgency is definitely not account-specific, but trip-specific. To show how this may challenge the main result of this paper, let us assume there is an individual's value of urgency $VU_i$ has the following distribution.
+\begin{equation}
+    VU_i = 
+\begin{cases}
+    0,& \text{with probability } 0.95\\
+    100,              & \text{with probability } 0.05\\
+\end{cases}
+\end{equation}
+The samples that enter our regression will show that this person has a very high value of urgency. However, the decision that this person makes only depends on whether he has a urgent situation that day (with probability of 0.05). If it is an unlucky day, this individual may want to pay 100 dollar toll, which leads to an upward bias of our estimate of the value of urgency. 
+
+One possible way to resolve the second sample selection concern is to put a structure on the value of urgency.  For example, we can assume that an individual has a value of urgency every morning of a weekday that draw from the following distribution.
+\begin{equation}
+    VU_i = \max\{\mathrm{E}[VU_i] + \varepsilon,0\}
+\end{equation}
+where $\varepsilon \sim N(0, \sigma^2) $. If the realization of the value of urgency plus the value of time saved if greater than the toll, an individual will pay for the ExpressLanes. Of course, this may require a new econometric method to estimate those parameters. 
+
+
+
+\section{Other Concerns}
+\begin{enumerate}
+\item \textbf{\textit{Supply Structure}} It would be better if this paper could built a supply structure. A plausible supply structure can also fix my concern of sample selection.
+
+\item \textbf{\textit{Other Assumptions of the Model}}  Firstly, Some assumptions of the utility may be oversimplified. The entire econometric methods are base on equation (1). 
+\begin{equation}
+C<\left(P_{E}-P_{R}\right)\left[R_{O T}-R_{L}\right]+\theta \cdot E\left[T^{R}-T^{E}\right]
+\end{equation}
+where $P_{R}$ and $P_{E}$ denote the probability of arriving on time if the driver chooses the regular, untolled lane and ExpressLanes, respectively. 
+
+This paper assumes that $P_{R}$ and $P_{E}$ are constant. However, this assumption is not valid in the real world. With a flexible probability, the smooth curve in figure (1) better characterize the relation between toll paid and travel time saved. I need to mention that the main results of this paper of will not be challenged by this concern, because fixed $P_{R}$ and $P_{E}$ only cause downward bias of the estimation of the value of urgency. 
+
+\begin{figure}[H]
+\caption{}
+\includegraphics[scale=0.8
+]{referee figure 1.png}
+
+\centering
+\end{figure}
+
+\item \textbf{\textit{Time-Invariant Unobserved Attributes of ExpressLanes}}   The constant of the linear regression model will absorb many time-invariant effects. This paper uses weekend trips as a control group to separate the values of other unobservables and the value of urgency. However, this method may have several problems. Firstly, interactions between unobserved time-invariant road characteristics and morning peak may also explain why people use ExpressLanes during weekdays but not weekend. For example, if the lane is full of vehicles and the driver is tired, the quality of pavement may have a greater impact on driving experience and road safety. Secondly, there are only 1121 accounts that enter this regression, while there are in total 28075 accounts. There might be a selection bias. 
+
+\item \textbf{\textit{Pricing of The ExpressLanes}} It would be better if this paper could provide more information of the pricing of the ExpressLanes. Specifically, the relation of the prices and speeds is important.
+
+\item \textbf{\textit{Value of Time Saved}}  The value of time saved in this setting is low for specific reasons. In the morning of a workday, the time people leave their house is determined before they make decisions on whether to use ExpressLanes or not. The time saved on transportation will become extra time in company or waiting time before classes. 
+Therefore, the value of time saved in this setting might be lower than average.
+
+\item \textbf{\textit{Value of Urgency}} This paper may want to spend more time on emphasizing that the value of urgency it measures is a lower bound because we cannot observe the consumer surplus of using ExpressLanes. For example, if an individual face 100 dollar penalty for being late and the toll is only 5 dollars, we cannot observe that his actual value of urgency is 100 dollar. This concern might be solved by the new model that I provide in my second main concern.
+
+\item \textbf{\textit{Implication for Cost-Benefit Analysis}} This paper may want to add more details about cost-benefit analysis. For example, it might need to provide a way to estimate the benefit of ExpressLanes by the value of urgency together with other values.
+
+
+\end{enumerate}
+
+
+
+\end{document}
