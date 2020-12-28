@@ -1,0 +1,71 @@
+ \documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=2.5cm,right=2cm,top=2cm,bottom=2.5cm}
+
+
+\title{Reading Summary - Melitz and Ottaviano}
+\author{kai.liao }
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+
+This paper (Melitz and Ottaviano, 2008) is an extension of Melitz's (2003) paper of firm heterogeneity and international trade. One of the  main differences between these two papers is the choice of utility functions. While the previous paper assumes CES utility which implies constant markups, this paper instead assume a “quadratic" form of utility function, which allows heterogeneous and endogenous markups. This markup is related to the level of competition (market size) and therefore changed by the trade status. Another innovation of this paper is the assumption of technology distribution. Here Melitz and Ottaviano assume a specific form of technology distribution. This reading summary mainly focus on the basic setup in closed economy.
+
+
+The demand function is 
+\begin{equation}
+    U = q_0 + \alpha \int_{i\in \Omega}q_i\diff{i}-\frac{1}{2} \eta\int_{i\in \Omega}(q_i)^2\diff{i}-\frac{1}{2}\left( \int_{i\in \Omega}q_i\diff{i} \right)^2\\
+\end{equation}
+
+FOC implies
+\begin{equation}
+    p_i = \alpha - \gamma q_i - \eta Q
+\end{equation}
+
+The supply side, profit maximization is given by 
+\begin{equation}
+    q(c) = \frac{L}{\gamma}[p(c)-c]
+\end{equation}
+
+Equation (1) and (2) gives the cutoff condition (the necessary condition for a firm to survive in the market)
+
+\begin{equation}
+    p_i \leq p_{max} \text{~~,~where~~~}p_{max} = \frac{1}{\eta N +\gamma}(\gamma \alpha + \eta N \Bar{p})
+\end{equation}
+
+In monopolistic competition, firms just survive when price is equal to marginal profit.
+
+\begin{equation}
+    c_D = p_{max} 
+\end{equation}
+where $c_D$ is the cutoff marginal cost
+
+The free entry condition is the same as Melitz's (2003)
+\begin{equation}
+    \int_0^{c_D} \pi(c) \diff{G(c)} = f_E
+\end{equation}
+
+Then we assume the distribution of cost is
+\begin{equation}
+    G(c) = \left(\frac{c}{c_M}\right)^k, k\geq 1
+\end{equation}
+
+Then we have
+\begin{equation}
+    c_D = \left( \frac{\gamma\phi}{L}\right)^\frac{1}{k+2} = \frac{1}{\eta N +\gamma}(\gamma \alpha + \eta N \Bar{p})
+\end{equation}
+\begin{equation}
+    N = \frac{1}{\eta N +\gamma}\frac{\alpha-c_D}{c_D}
+\end{equation}
+
+From (7) and (8), we can see how the cutoff marginal cost and the number of firms are influenced by market size $L$ together with other variables.  
+
+We can repeat this analysis with new variables regarding international trade, e.g., trade sunk cost, trade marginal cost, and further assume the homogeneity of foreign countries. After that, the model in trade liberalization scenario follows.
+\end{document}
