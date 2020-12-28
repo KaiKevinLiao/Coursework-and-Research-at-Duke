@@ -1,0 +1,245 @@
+\documentclass[11pt]{article}
+\usepackage{helvet}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{bigints}
+\usepackage{bbm}
+%\onehalfspacing
+%\doublespacing
+\usepackage{algorithm2e}
+\usepackage{float}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{enumerate}
+\usepackage{mdframed}
+\usepackage{framed}
+\usepackage{url}
+\usepackage{listings}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=black,
+}
+
+
+\newcommand{\indep}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\bm}[1]{\mathbf{#1}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\com}[1]{&&\mbox{(#1)}}
+\newcommand{\note}[1]{\noindent{\color{red} [\textbf{Note:} #1]}}
+\NewDocumentCommand{\codeword}{v}{%
+\texttt{\textcolor{blue}{#1}}%
+}
+
+\NewDocumentCommand{\setword}{v}{%
+\texttt{\textcolor{black}{#1}}%
+}
+
+
+\newif\ifsoln
+\solntrue
+
+\usepackage{caption}
+\usepackage{epstopdf} %%package to overcome problem with eps in pdf files
+\newcommand*{\SHOWANSWERS}{}
+\usepackage{enumitem}
+\lstset{language=C, keywordstyle = {\bfseries \color{blue}}}
+
+\title{COMPSCI 671D Fall 2020\\Homework 1}
+\author{}
+\date{Due 10:15 PM EST, September 7}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section{Information Theory (30 points)}
+\label{sec:it}
+    The entropy in information theory is also referred to as Shannon entropy. For a particular random variable $X$ that has $n$ possible discrete outcomes $x_1,...,x_n$, its entropy is defined as 
+    \begin{equation}
+        H(X) = -\sum_{i=1}^n p(x_i) \log_2 p(x_i),
+    \end{equation}
+    where $x_1, x_2, \cdots, x_n$ are possible outcomes of $X$, $P(X=x_i) = p_i, i = 1,2,\cdots, n$ and $\sum_i p_i = 1$. The entropy is only a function of the distribution of possible outcomes $p_1,...,p_n$ and not dependent on the outcome values $x_1,...,x_n$, so we can represent the entropy of $X$ as $H(p)$. 
+    
+
+
+\paragraph{1.1} Assume $X$ obeys a categorical distribution with $n$ possible outcomes. Under what distribution will the entropy of $X$ reach its maximum? What is the maximum? (Hint: Prof. Rudin has discussed when the entropy of $X$ reaches its maximum when $n=2$. No derivation needed.)
+
+\,
+
+\noindent The Conditional Entropy $H(Y|X)$ describes expectation of entropy for the variable $X$.
+\begin{equation}
+\label{eq:conditional_entropy}
+    H(Y|X) = \sum_{i=1}^n H(Y|X=x_i)P(X=x_i)
+\end{equation}
+The mutual information is the difference between the entropy of $Y$ and the conditional entropy of $Y$ given $X$. We can also call it the information gain given $X$:
+\begin{equation}
+\label{eq:information_gain}
+    I(X,Y) = H(X) - H(X|Y).
+\end{equation}
+
+
+
+\paragraph{1.2} What is the information gain (IG) between $X$ and itself? 
+
+\paragraph{1.3} Prove that the information gain is non-negative, i.e. $I(X,Y)\geq 0$. 
+(Hint: (i) You can start by proving  $\sum_{i=1}^n p(x_i) \log  \frac{p(x_i)}{q(x_i)} \geq 0$ first. You might need to know the following expression is true: $\log_2 x \leq  (x-1) \log_2 e $. (ii) Follow the definition of entropy, conditional entropy (Eq.\ref{eq:conditional_entropy}) and information gain (Eq.\ref{eq:information_gain}) to represent the information gain as $ - \sum_{i=1}^n \sum_{j=1}^m p(x_i, y_j )\log \frac{p(x_i) p(y_j)}{p(x_i, y_j )}$ and then go back and use hint (i) to finish off the proof).
+
+
+
+
+\paragraph{1.4}
+ Now that you have learned the basics of machine learning from COMPSCI 671, you would like to apply this knowledge to help others. The Duke Fishing Club wants you to help them predict whether tomorrow is a good day to go fishing. They have provided you a dataset of their previous travel records, which is separated into a training set and a test set in Table~\ref{table:training} and Table~\ref{table:test}. Denote the last column as label $Y$, and the first three columns as features $A_1, \cdots, A_3$. Please calculate the entropy of the labels $H(Y)$, and the conditional entropy of the labels with respect to each feature $H(Y|A_i)$. Calculate the information gain of each feature. Which feature should we split on first, if we are building a decision tree using the C4.5 algorithm? 
+ 
+ 
+\begin{table}
+\centering
+\begin{tabular}{ |p{2cm}|p{2cm}|p{2cm}||p{2cm}|  }
+
+ \hline
+ \multicolumn{4}{|c|}{Training Set} \\
+ \hline
+ Outlook & Humidity & Windy & Go fishing?\\
+ \hline
+ Rainy & Normal & False & Yes\\
+ Sunny & High & True & No\\
+ Rainy & Normal & True & Yes\\
+ Rainy & High & True & Yes\\
+ Sunny & High & False & Yes\\
+ Sunny & Normal & True & No\\
+ Sunny & Normal & False & Yes\\
+ Rainy & High & False & No\\
+ Rainy & Normal & False & Yes\\
+ Rainy & Normal & True & Yes\\
+ Rainy & High & False & No\\
+ Sunny & Normal & False & Yes\\
+ Rainy & High & False & Yes\\
+ Rainy & High & True & No\\
+ \hline
+ 
+\end{tabular}
+\caption{Training Set for problem 1 \& 2}
+\label{table:training}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{ |p{2cm}|p{2cm}|p{2cm}||p{2cm}|  }
+
+ \hline
+ \multicolumn{4}{|c|}{Test Set} \\
+ \hline
+ Outlook & Humidity & Windy & Go fishing?\\
+ \hline
+ Sunny & High & True & No\\
+ Rainy & High & False & No\\
+ Sunny & Normal & False & No\\
+ Rainy & Normal & True & Yes\\
+ Sunny & High & False & No\\
+ \hline
+ 
+\end{tabular}
+\caption{Test Set for problem 1 \& 2}
+\label{table:test}
+\end{table}
+
+
+
+\section{Decision Trees (30 points)}
+% \subsection{Tree Generation}
+\paragraph{2.1} Build a decision tree using the splitting rule from the C4.5 algorithm for the training set in Table \ref{table:training}. Split until all nodes are pure, or until no further splits are possible. Do this manually, do not call a previously implemented version of C4.5. Note that the C4.5 algorithm uses the Information Gain as its splitting criteria, so you can reuse results you have calculated for Problem 1.5 for the first split. If two features have the same Information Gain, please choose the one in lexographic order (i.e., choose in the order of Humidity, Outlook, Windy). If you encountered any leaf nodes that have equal probability on ``Yes'' and ``No'', predict ``Yes'' in your decision tree.
+    
+    In your answer, please draw the decision tree you derived, and report the \textbf{\textit{error rate}} on the \textbf{\textit{training set}} and \textbf{\textit{test set}}. (You may find it easy to draw this on a tablet or in PowerPoint.)
+
+
+
+    
+\paragraph{2.2} Build a decision tree using the splitting rule from the C4.5 algorithm for the training set in Table \ref{table:training} again. But this time, don't split if $IG < 0.04$. If this happens, simply leave the current node to be a leaf node. Again, do this manually, do not call a previously implemented version of C4.5. 
+    
+In your answer, please draw the decision tree you derived, and report the \textbf{\textit{error rate}} on the \textbf{\textit{training set}} and \textbf{\textit{test set}}. Compared to the tree you get in 2.1, does the test performance increase or decrease? Why?
+
+
+
+\paragraph{2.3}  Calculate the Gini index of each feature and build a decision tree using the splitting criterion from the CART algorithm manually. Report the error rate on the training set and test set. Can you do any pruning on the tree by the cost function $\sum_{\text{leaves}_j} \sum_{x_i \in \text{leaf}_j} \mathbbm{1}_{[y_i \neq \text{leaf's class}]} + C[\#\text{leaves in subtree}] $, where $C = 1$? If you can, what is the difference in training error between the original tree and the pruned tree?
+    
+
+
+
+\section{Programming (40 points)}
+In this section, you will need to train several models and do experiments on the breast cancer dataset using \textbf{Python}. You need to download four files: \setword{data_train.csv}, \setword{data_test.csv}, \setword{data_imbalanced_train.csv} and \setword{data_imbalanced_test.csv} from Sakai. We have also provided a skeleton code for you to read csv file. For this problem, please upload all the code you have written to Gradescope, and also \textbf{append it to the end of your writeup}.
+
+\subsection{Variable Selection and Cross Validation}\label{sec:cv}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Using the skeleton code as a starting point, write the code to read the dataset from\\ \setword{data_train.csv} and \setword{data_test.csv}, and train different models on the training set. Use 5-fold cross validation on the training set only, and compare accuracy and time cost performance of three different  algorithms:  ID3 (which is extremely similar to C4.5), CART and Random Forest, using \\ \codeword{sklearn.tree.DecisionTreeClassifier} and
+    \codeword{sklearn.ensemble.RandomForestClassifier}. (You will train 15 models through this process. Note that for these programming problems you do not implement the methods yourself, you will use a package.)
+    Notice that ID3 and CART use entropy and gini index as the splitting criterion respectively. For the forest, you could set the number of estimators to 50 or more and use `GINI' splitting method. No other hyperparameter tuning is needed here, you can simply use the default parameters. Please turn in the code and the results. Besides the average accuracy, you should also report the standard deviation, and do pairwise t-tests to determine whether there's a significant difference between the best algorithm and the other algorithms. You may find \codeword{sklearn.model_selection.KFold} and \codeword{scipy.stats.ttest_ind} useful here. 
+    
+    \item This time, we will use 5-fold cross validation to choose a parameter value. We want to pick a value for the hyperparameter \setword{max_depth} for the Random Forest classifier. Possible candidates for \setword{max_depth} range from 1 to 10. Run 5-fold cross validation on the training set, and report the average accuracy for each \setword{max_depth}. Write out each step and how you divided the dataset into training and validation folds. (You will train 50 random forests in this process.)
+    Remember never to use the test set for tuning parameters! After you pick the best parameter, train a model on the full training set using that parameter, and report its performance on the test set.
+    
+    
+    \item In this question, we will investigate how to use ROC curves and AUC to evaluate the quality of each of our variables. Draw an ROC curve for each of the \textbf{features} in the dataset, and put them all on the same plot. (You can use a feature itself as a prediction function and generate the ROC curve according to the features' scores.) You can generate the ROC curves with the helper function provided in the skeleton code we provided. Report the AUC for each of the features in your answer. Do you think some features might be more useful than others? 
+    
+    \item Instead of the ranking performance on the full range of scores of a classifier, sometimes we may care about the ranking performance on a small range of scores. This is usually evaluated by partial AUC. If we think of the ROC curve as a function of the False Positive rate (denoted as $x$ below), then we have
+    
+    $$AUC = \int_{0}^{1} ROC(x) dx$$
+    
+    and similarly,
+    
+    $$Partial AUC = \frac{\int_{t_0}^{t_1} ROC(x) dx}{t_1-t_0},$$
+    
+    where the ``x'' in the above expression is the false positive rate.
+    
+    If we choose $t_0$ to be 0, we are evaluating the quality of the highest scoring observations; for instance, these are the most vulnerable medical patients (using health data) or the equipment that is most likely to fail (using equipment failure data).
+    Calculate the partial AUC for the \textbf{first five features} in the range of $(0, 0.2)$. 
+    
+    \item Run CART on the training set, and calculate the model reliance of the CART model on all of the features it uses. To calculate CART's model reliance for a variable, simply randomly scramble the column corresponding to that variable, and report by what fraction the loss increases.
+
+\end{enumerate}
+
+
+\subsection{Imbalanced Dataset}\label{sec:imbalance}
+The dataset we provided in Problem~\ref{sec:cv} is fairly balanced. What if the data is imbalanced? In this problem, we will investigate how class imbalance impacts the performance of various models.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Read the dataset from \setword{data_imbalanced_train.csv} and \setword{data_imbalanced_test.csv}. What is the imbalance ratio?
+
+\item Class imbalance sometimes causes problems. One of the most popular approaches to deal with class imbalance is to weigh the loss for positives and negatives differently, so that the less common category will receive more attention from the model. Again, we will use the three algorithms from Problem~\ref{sec:cv} to train models on the training set. Please report the confusion matrix on the test set for all three algorithms. (Do not tune parameters.)
+
+\item While fixing the weight on the more common category to be 1, gradually increase the weight on the less common category from 1 to 20 by steps of 1. Set the maximum depth of all the three algorithms (ID3, CART, RandomForest) to 3 in order to avoid overfitting in all of these experiments. Now, for each algorithm, keep track of 40 values as you increase the weight: 20 training accuracy values for positive points, and 20 training accuracy values for negative points. Plot these accuracies as a function of weights on the two categories on the training set and testing set -- create three plots, one for each algorithm, where you plot positive and negative accuracies on the same plot. Please remember to label the axes of your plot and title each plot. You may find \setword{matplotlib.pyplot} package useful for this task.
+
+
+\end{enumerate}
+
+\end{document}
+
+                              
