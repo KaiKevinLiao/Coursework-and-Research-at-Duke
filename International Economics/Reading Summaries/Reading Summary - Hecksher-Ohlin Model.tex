@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{makecell}
+\geometry{left=2.5cm,right=2cm,top=2cm,bottom=2.5cm}
+\titleformat*{\section}{\Median\bfseries}
+
+\title{Reading Summary - H-O Model}
+\author{kai.liao }
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{HOS Model}
+The classic 2 factors 2 sectors 2 countries Hecksher-Ohlin model requires following assumptions: 
+
+A1. Two factors (L\&K), Two goods(S\&C), S is "labor-intensive". $\frac{L_S}{K_C} > \frac{L_C}{K_C}$
+
+A2. Foreign is "labor abundant", home is "capital abundant". $\frac{\Bar{L^*}}{\Bar{K^*}}>\frac{\Bar{L}}{\Bar{K}}$
+
+\textbf{A3. Goods can be traded freely, but labor and capital do not move between countries.}
+
+\textbf{A4. Technologies and preferences are same across countries.}
+
+\noindent Results:
+\begin{equation}
+    \left(\frac{P_C}{P_S}\right)^A<\left(\frac{P_C}{P_S}\right)^W<\left(\frac{P_C^*}{P_S^*}\right)^A \\
+    \text{and home imports S and exports C}
+\end{equation}
+
+
+\section{HOV Model}
+
+Setting: For a country i, let $A$ denote a M(factors)*N(sectors) technology matrix, $Y^i$ denote output, $D^ii$ denote demand, and $V^i = AY^i$ is the endowments. \textbf{Also assume A3 and A4, but countable countries, sectors and countries}, We have:
+\begin{equation}
+    F^i = AT^i = V^i-s^iV^W
+\end{equation}
+We then allow technology heterogeneity. Let $\pi_{k}^i$ denotes the productivity matrix of county i. We have:
+\begin{equation}
+    F_k^i = \pi_k^i V_k^i- s^i \sum_{j=1}^C \pi_k^j V_k^j
+\end{equation}
+
+\section{Comments}
+After developing a trade model, we either estimate using the model or test the model. The former assumes the model is correctly specified and then estimate parameters and effects. For example, Leamer (1984) uses trade data for 60 countries to estimate Rybczyniski effects. Because many assumptions, especial A3 and A4, is not true, the point estimates are difficult to interpret and therefore the sign pattern of the coefficients is of more interest. The latter also assume the model is correctly specified (Null hypotheses) and then test if its implications are compatible with data or common sense (i.e., the null is rejected). For example, Leontief paradox states that while the HOS model predict the U.S. should export more "capital-intensive" than import, the data shows the opposite. This finding rejects the HOS model. In general, it is clear that the models are incorrect since we already knew that homothetic preferences, free trade, and identical technologies in some cases are not realistic.
+
+The next question is how we rescue a rejected model. Economists either rewrite the model with weaker assumptions or rely on better data. For example, the improvement from HOS model to HOV model was due to an extension from 2 countries to countable countries, and HOV model was further improved by allowing technology heterogeneity. These attempts successfully rescue the model from original Leontif Paradox. 
+
+Although relaxing assumptions and including more parameters seems a good way of fitting model to data, it inevitably  makes the model more difficult to test, and in some cases, untestable at all. For example, to test the HOV model with heterogeneous technology, we need to acquire the technology matrix for each country using other indirect methods, otherwise, the HOV equation will balance itself by "choosing" a "right" technology matrix. Generally speaking, with more parameters of interest, we are more likely to achieve a equality of the HOV equation. To solve this, some economists propose test that make use of economic behavior. 
+
+\section{Side Notes}
+\subsection{Example of (1)}\\
+\begin{equation*}
+\left\{
+             \begin{array}{lc}
+             Y_S = a_SL_S^\alpha K_S^{1-\alpha}\\
+             Y_C = a_CL_C^\alpha K_C^{1-\alpha}
+             \end{array}
+\right.
+s.to.
+\left\{
+             \begin{array}{lc}
+             K_C+K_S=\Bar{K}\\
+             L_C+L_S=\Bar{L}
+             \end{array}
+\right.
+\Longrightarrow PPF
+\end{equation*}
+
+\begin{equation*}
+\Longrightarrow
+             \text{autarky: }\left(\frac{P_C}{P_S}\right)^A<\left(\frac{P_C^*}{P_S^*}\right)^A
+             \text{, with trade: }\left(\frac{P_C}{P_S}\right)^A<\left(\frac{P_C}{P_S}\right)^W<\left(\frac{P_C^*}{P_S^*}\right)^A
+\end{equation*}
+
+$$\text{Home imports S and exports C}$$
+
+\subsection{Proof of (2)}
+\begin{equation*}
+    \begin{split}
+        F^i &= A T^i\\
+        &= A(Y^i-D^i)\\
+        &= V^i-AD^i\\
+        &= V^i-As^iD^w\\
+        &= V^i-s^iV^w\\
+    \end{split}
+\end{equation*}
+
+\subsection{Theorems}
+\begin{center}
+\begin{tabular}{ c c c }
+ \textbf{theorems} & \textbf{relation between} & \textbf{main results}\\
+ The Rybeyzinski theorem & endowments and production & \thead{quantity of one factor increase\\$\Rightarrow$output of "intensive" good increase\\output of the other good decrease} \\ 
+ The Stoplper-Samuelson theorem & \thead{externally determined price and \\internal factor price} & \thead{a good price increases \\$\Rightarrow$ price of intensive factor increase\\price of other factor decrease} \\  
+ FPE etc. & factor supply and factor price & \thead{factor price insensitive factor supply (FPI)\\factor prices equal across countries (FPE)\\factor price ajustment (FPA)\\factor price converge (FPC)}
+\end{tabular}
+\end{center}
+
+\end{document}
+
+
