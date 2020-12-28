@@ -1,0 +1,266 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{comment}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\def\P(#1){\Phelper#1|\relax\Pchoice(#1)}
+\def\Phelper#1|#2\relax{\ifx\relax#2\relax\def\Pchoice{\Pone}\else\def\Pchoice{\Ptwo}\fi}
+\def\Pone(#1){\Pr\left( #1 \right)}
+\def\Ptwo(#1|#2){\Pr\left( #1 \mid #2 \right)}
+\def\Pr{\mathbf{Pr}}
+\geometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2.5cm}
+\usepackage{graphicx}
+\renewcommand{\qedsymbol}{$\square$}
+
+\title{Machine Learning - HW2}
+\author{Kai Liao }
+\date{September 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Logistic Regression}
+\textbf{\textit{Lemma.} } \textbf{Let matrix A be symmetric, there exists $t < \infty$ such that $t I + A$ is positive semi-definite.}
+
+\begin{proof}
+\textbf Suppose $A$ is a symmetric matrix. There exists an orthogonal matrix $P$ such that $P'AP = C$ is a diagonal matrix and $P'P=I$. Therefore, $P'(tI+A)P=tI+C$ and $t I+C$ is a diagonal matrix. Choose $t = \max_i\{\text{diag}(-C, i)\} + 1$,\footnote{Define diag($A$,$i$) =  the diagonal element in the $i$ row} then all diagonal elements are positive. Therefore, $t I + A$ must be positive semi-definite.\\
+\end{proof}
+
+
+
+
+Define
+\begin{equation}
+    \sigma(z)=\frac{1}{1+\exp (-z)} \text{  where  } z = f_{\mathbf{w}}\left(\mathbf{x}_{k}\right)
+\end{equation}
+Therefore,
+\begin{equation}\partial L_{D}(\mathbf{w}) = \sum_{i=1}^{m}-\left(y_{i} \log \sigma\left(z_{i}\right)+\left(1-y_{i}\right) \log \left(1-\sigma\left(z_{i}\right)\right)\right)\end{equation}
+Notice that,
+\begin{equation}\frac{d \sigma(z)}{d z}=\exp (-z)(1+\exp (-z))^{-2}=\frac{1}{1+\exp (-z)} \frac{\exp (-z)}{1+\exp (-z)}=\sigma(z)(1-\sigma(z))\end{equation}
+
+First, I compute the first order derivative of the loss function.
+\begin{equation}
+\begin{split}
+    \frac{\partial L_{D}(\mathbf{w})}{\partial \mathbf{w}} &=-\sum_{k=1}^n \left[ y_k  \times \frac{1}{\sigma(z)} \times \sigma(z)(1-\sigma(z)) \times \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}} + (1-y_k) \times \frac{1}{1-\sigma(z)} \times (-\sigma(z))(1-\sigma(z)) \times \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}} \right]\\
+    &= \sum_{k=1}^n \left[ (\sigma(z) - y_k ) \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}} \right]
+\end{split}
+\end{equation}
+
+Then, I compute the second order derivatives (Hessian matrix).
+
+\begin{equation}
+    \begin{split}
+        \frac{\partial^{2}  L_{D}(\mathbf{w})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}} &=\sum_{k=1}^n \left[ (\sigma(z) - y_k )  \frac{\partial^{2} f_{\mathrm{w}}(\mathbf{x_k})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}} + \frac{\partial (\sigma(z) - y_k)}{\partial z} \frac{\partial z}{\partial \mathbf{w}_j} \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}_i}  \right]\\
+        &= \sum_{k=1}^n \left[ (\sigma(z) - y_k )  \frac{\partial^{2} f_{\mathrm{w}}(\mathbf{x_k})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}} + \sigma(z)(1-\sigma(z)) \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}_i} \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}_j} \right]
+    \end{split}
+\end{equation}
+
+The Hessian matrix $H$ for the $L_2$ regularized new objective is:
+
+\begin{equation}
+\frac{\partial^{2}  \widetilde{L}_{D}(\mathbf{w})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}} = \frac{\partial^{2}  L_{D}(\mathbf{w})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}}+\alpha \text{     if $i = j$}
+\end{equation}
+\begin{equation}
+\frac{\partial^{2}  \widetilde{L}_{D}(\mathbf{w})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}} = \frac{\partial^{2}  L_{D}(\mathbf{w})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}} \text{     if $i \neq j$}
+\end{equation}
+\\
+The generate a sufficient large $\alpha$, I have the following two methods:\\
+
+\textit{Method 1: }
+
+This Hessian matrix $H$ can be written as
+\begin{equation}
+    H = H^o + \alpha I
+\end{equation}
+
+where $H'$ is,
+\begin{equation}
+    \frac{\partial^{2}  \widetilde{L}_{D}(\mathbf{w})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}} = \frac{\partial^{2}  L_{D}(\mathbf{w})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}}
+\end{equation}
+
+By the \textit{lemma}, there exists $\alpha$ such that $H$ is positive semi-definite. To find a value of $\alpha$, we can follow the process in the proof the lemma. Firstly, I diagonalize the matrix $H$ to $P'H^oP = C$. Then, let $\alpha = \max_i\{\text{diag}(-C, i)\} + 1$. By the lemma, $H = H^o + \alpha I$ is positive semi-definite.
+\\
+\textit{Method 2: }
+
+The Hessian matrix $H$ can also be written as 
+\begin{equation}
+    H = H^1 +  H^2 + \alpha I
+\end{equation}
+where
+\begin{equation}
+    H^1[i,j] =  \sum_{k=1}^n \left[ (\sigma(z) - y_k )  \frac{\partial^{2} f_{\mathrm{w}}(\mathbf{x_k})}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{j}}  \right]
+\end{equation}
+\begin{equation}
+    H^2[i,j] =  \sum_{k=1}^n \left[  \sigma(z)(1-\sigma(z)) \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}_i} \frac{\partial f_{\mathbf{w}}\left(\mathbf{x}_{k}\right) }{\partial \mathbf{w}_j} \right]
+\end{equation}
+
+By triangle inequality,
+\begin{equation}
+    ||H^1||_2 \leq  u
+\end{equation}
+and
+\begin{equation}
+    ||H^2||_2 \leq  Ng
+\end{equation}
+Therefore the min eigenvalue for $H^1 +H^2$ is greater than $- u - Ng$. So we can set $\alpfa = u + Ng$, the $H$ will be positive definite.
+
+\begin{comment}
+\begin{equation}
+    \alpha > \max_i \left\{-\sum_{k=1}^{n}\left[\left(y_{k}-\frac{1}{1+\exp \left(-f_{\mathbf{w}}\left(\mathbf{x}_{k}\right)\right)}\right) \frac{\partial^{2} f_{\mathbf{w}}\left(\mathbf{x}_{\mathbf{k}}\right)}{\partial \mathbf{w}_{i} \partial \mathbf{w}_{i}}\right]\right\}
+\end{equation}
+\end{comment}
+
+
+
+\section{SVM with a Squared Loss}
+\begin{proof}
+The optimization problem is
+\begin{equation}\min L(w, b, e)=\frac{1}{2} w^{\top} w+\frac{1}{2} C \sum_{i=1}^{n} e_{i}^{2}, \quad \text { s.t. } \quad y_{i}-w^{\top} x_{i}=e_{i}\end{equation}
+We can write the Lagrangian as
+\begin{equation}\mathcal{L}=\frac{1}{2} w^{T} w+\frac{1}{2} C \sum_{i=1}^{n} e_{i}^{2}+\sum_{i=1}^{n} \lambda_{i}\left(y_{i}-w^{T} x_{i}-e_{i}\right)\end{equation}
+The KKT conditions are
+\begin{equation}\begin{split}
+\text{(1)   }\frac{\partial \mathcal{L}}{\partial w}&=w-\sum_{i=1}^{n} \lambda_{i} \tau_{i}=0 \\
+\text{(2)   }\frac{\partial L}{\partial e_{i}}&=C_{e_{i}}-\lambda_{i}=0 \\
+\text{(3)   }\frac{\partial L}{\partial \lambda_{i}}&=y_{i}-w^{T} x_{i}-e_{i}=0
+\end{split}\end{equation}
+We can solve for $w$ as follow
+\begin{equation}\begin{aligned}
+w &=C \sum_{i=1}^{n} e_{i} x_{i} \\
+&=C \sum_{i=1}^{n}\left(y_{i}-w^{T} x_{i}\right) x_{i}\\
+&=-C \sum_{i=1}^{n} w^{T} x_{i} x_{i}+C \sum_{i=1}^{n} y_{i} x_{i}\\
+&= -C \sum_{i=1}^{n} x_{i} x_i^T w + C \sum_{i=1}^{n} y_{i} x_{i}
+\end{aligned}\end{equation}
+Therefore,
+\begin{equation}w+C \sum_{i=1}^{n} x_{i} x_{i}^{T} w=C \sum_{i=1}^{n} y_{i} x_{i}\end{equation}
+It is equivalent to 
+\begin{equation}w=\left(\frac{1}{C} I+\sum_{i=1}^{n} x_{i} x_{i}^{T}\right)^{-1} \sum_{i=1}^{n} y_{i} x_{i}\end{equation}
+
+
+\end{proof}
+
+
+\section{Linear SVM}
+\textbf{\textit{Please find the code and answers after section 4}}
+\section{AdaBoost}
+\subsection{}
+\textit{Proof. } Firstly, I would like to quickly repeat the proof of the theorem we have shown in class.\\
+\textbf{Theorem } \textit{If the weak learning assumption holds, AdaBoost’s misclassification
+error decays exponentially fast:}
+\begin{equation}\frac{1}{n} \sum_{i=1}^{n} \mathbf{1}_{\left[y_{i} \neq H\left(x_{i}\right)\right]} \leq e^{-2 \gamma_{W L A}^{2} T}\end{equation}
+\textit{Proof of the Theorem. }
+\begin{equation}\begin{aligned}
+R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t+1}\right) &=R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t}+\alpha_{t} \mathbf{e}_{j_{t}}\right)=\frac{1}{n} \sum_{i=1}^{n} e^{-\left[\mathbf{M}\left(\boldsymbol{\lambda}_{t}+\alpha_{t} \mathbf{e}_{j_{t}}\right)\right]_{i}}=\frac{1}{n} \sum_{i=1}^{n} e^{-\left(\mathbf{M} \boldsymbol{\lambda}_{t}\right)_{i}-\alpha_{t} M_{i j_{t}}} \\
+&=e^{-\alpha_{t}} \frac{1}{n} \sum_{i: M_{i j_{t}}=1} e^{-\left(\mathbf{M} \boldsymbol{\lambda}_{t}\right)_{i}}+e^{\alpha_{t}} \frac{1}{n} \sum_{i: M_{i j_{t}}=-1} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}}
+\end{aligned}\end{equation}
+Define $Z_{t}=\sum_{i=1}^{n} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}}$, we have
+\begin{equation}d_{t, i}=e^{-\left(\mathbf{M} \boldsymbol{\lambda}_{t}\right)_{i}} / Z_{t}\end{equation}
+and
+\begin{equation}\frac{Z_{t}}{n} d_{+}=\frac{Z_{t}}{n} \sum_{i: M_{i j_{t}}=1} d_{t, i}=\frac{1}{n} \sum_{i: M_{i j_{t}}=1} e^{-\left(\mathrm{M} \lambda_{t}\right)_{i}}\end{equation}
+and similarly
+\begin{equation}\frac{Z_{t}}{n} d_{-}=\frac{1}{n} \sum_{i: M_{i j_{t}}=-1} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}}\end{equation}
+Therefore,
+\begin{equation}\begin{aligned}
+R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t+1}\right)&=e^{-\alpha} \frac{Z_{t}}{n} d_{+}+e^{\alpha} \frac{Z_{t}}{n} d_{-}\\
+&=R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t}\right)\left[e^{-\alpha} d_{+}+e^{\alpha} d_{-}\right] \\
+&=R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t}\right)\left[e^{-\alpha}\left(1-d_{-}\right)+e^{\alpha} d_{-}\right]\\
+&=R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t}\right)\left[\left(\frac{d_{-}}{1-d_{-}}\right)^{1 / 2}\left(1-d_{-}\right)+\left(\frac{1-d_{-}}{d_{-}}\right)^{1 / 2} d_{-}\right] \\
+&=R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t}\right) 2\left[d_{-}\left(1-d_{-}\right)\right]^{1 / 2} \\
+&=R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t}\right) 2\left[\epsilon_{t}\left(1-\epsilon_{t}\right)\right]^{1 / 2}
+\end{aligned}\end{equation}
+Then,
+\begin{equation}\begin{aligned}
+R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{T}\right)&=\prod_{t=1}^{T} 2 \sqrt{\epsilon_{t}\left(1-\epsilon_{t}\right)}\\
+&= \prod_{t=1}^{T} 2 \sqrt{\left(\frac{1}{2}-\gamma_{t}\right)\left(\frac{1}{2}+\gamma_{t}\right)}\\
+&= \prod_{t} \sqrt{1-4 \gamma_{t}^{2}}\\
+&\leq \prod_{t} \sqrt{e^{-4 \gamma_{t}^{2}}}\\
+&=\prod_{t} e^{-2 \gamma_{t}^{2}}\\
+&=e^{-2 \sum_{t=1}^{T} \gamma_{t}^{2}}
+\end{aligned}\end{equation}
+Finally,
+\begin{equation}\frac{1}{n} \sum_{i=1}^{n} \mathbf{1}_{\left[y_{i} \neq H\left(x_{i}\right)\right]} \leq R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{T}\right) \leq e^{-2 \sum_{t=1}^{T} \gamma_{t}^{2}} \leq e^{-2 \gamma_{W L A}^{2} T}\end{equation}
+
+By the theorem,
+\begin{equation}
+ 0 \leq \sum_{i=1}^{n} \mathbf{1}_{\left[y_{i} \neq H\left(x_{i}\right)\right]} \leq  n e^{-2 \gamma_{W L A}^{2} T}
+\end{equation}
+Since
+\begin{equation}
+\lim_{T \rightarrow \infty} n e^{-2 \gamma_{W L A}^{2} T} = 0
+\end{equation}
+by sandwich lemma,
+\begin{equation}
+ \lim_{T \rightarrow \infty} \sum_{i=1}^{n} \mathbf{1}_{\left[y_{i} \neq H\left(x_{i}\right)\right]} = 0
+\end{equation}
+
+\subsection{}
+\begin{equation}R^{\operatorname{train}}(\boldsymbol{\lambda})=\sum_{i=1}^{n} w_{i} e^{-(M \boldsymbol{\lambda})_{i}}\end{equation}
+
+Choosing the direction $j$:
+
+\begin{equation}\begin{aligned}
+j_{t} & \in \operatorname{argmax}_{j}\left[-\left.\frac{\partial R^{\operatorname{train}}\left(\boldsymbol{\lambda}_{t}+\alpha \mathbf{e}_{j}\right)}{\partial \alpha}\right|_{\alpha=0}\right] \\
+&=\operatorname{argmax}_{j}\left[-\left.\frac{\partial}{\partial \alpha}\left[\frac{1}{n} \sum_{i=1}^{n} w_{i}e^{-\left(\mathbf{M}\left(\boldsymbol{\lambda}_{t}+\alpha \mathbf{e}_{j}\right)\right)_{i}}\right]\right|_{\alpha=0}\right] \\
+&=\operatorname{argmax}_{j}\left[-\left.\frac{\partial}{\partial \alpha}\left[\frac{1}{n} \sum_{i=1}^{n} w_{i}e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}-\alpha\left(\mathbf{M}_{j}\right)_{i}}\right]\right|_{\alpha=0}\right] \\
+&=\operatorname{argmax}_{j}\left[-\left.\frac{\partial}{\partial \alpha}\left[\frac{1}{n} \sum_{i=1}^{n} w_{i}e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}-\alpha M_{i j}}\right]\right|_{\alpha=0}\right] \\
+&=\operatorname{argmax}_{j}\left[\frac{1}{n} \sum_{i=1}^{n} w_{i}M_{i j} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}}\right]
+\end{aligned}\end{equation}
+
+Define $Z_{t}=\sum_{i=1}^{n} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}}$, we have
+\begin{equation}d_{t, i}=e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}} / Z_{t}\end{equation}
+
+\begin{equation}j_{t} \in \operatorname{argmax}_{j} \sum_{i=1}^{n} w_{i} M_{i j} d_{t, i}\end{equation}
+
+Choosing the step $\alpha$:
+
+\begin{equation}\begin{aligned}
+0 &=\left.\frac{\partial R\left(\boldsymbol{\lambda}_{t}+\alpha \mathbf{e}_{j t}\right)}{\partial \alpha}\right|_{\alpha_{t}} \\
+&=-\frac{1}{n} \sum_{i=1}^{n} w_{i} M_{i j_{t}} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}-\alpha_{t} M_{i j_{t}}} \\
+&=-\frac{1}{n} \sum_{i: M_{i j_{t}}=1} w_{i} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}} e^{-\alpha_{t}}-\frac{1}{n} \sum_{i: M_{i j_{t}}=-1}- w_{i} e^{-\left(\mathbf{M} \lambda_{t}\right)_{i}} e^{\alpha_{t}}
+\end{aligned}\end{equation}
+Define $d_{+} = \sum_{i: M_{i j_{t}}=1} w_{i} d_{t, i}$  and $d_{-} = \sum_{i: M_{i j_{t}}=-1} w_{i} d_{t, i}$
+
+\begin{equation}\begin{aligned}
+0 &=\sum_{i: M_{i j t}=1}  w_{i} d_{t, i} e^{-\alpha_{t}}-\sum_{i: M_{i j_{t}}=-1}  w_{i} d_{t, i} e^{\alpha_{t}} \\
+&={d}_{+} e^{-\alpha_{t}}-d_{-} e^{\alpha_{t}}
+\end{aligned}\end{equation}
+Therefore,
+\begin{equation}\alpha_{t}=\frac{1}{2} \ln \frac{d_{+}}{d_{-}}=\frac{1}{2} \ln \frac{1-d_{-}}{d_{-}}\end{equation}
+
+So the coordinate descent algorithm is:
+
+\begin{equation*}\begin{aligned}
+&d_{1, i}=1 / n \text { for } i=1 \ldots n\\
+&\lambda_{1}=0\\
+&\text { loop } t=1 \ldots T\\
+&j_{t} \in \operatorname{argmax}_{j} \sum_{i=1}^{n} w_{i} M_{i j} d_{t, i}\\
+&d_{-}=\sum_{M_{i j_{t}}=-1} w_{i} d_{t, i}\\
+&\alpha_{t}=\frac{1}{2} \ln \left(\frac{1-d_{-}}{d_{-}}\right)\\
+&\lambda_{t+1}=\lambda_{t}+\alpha_{t} \mathrm{e}_{j_{t}}\\
+&d_{t+1, i}=e^{-\left(\mathrm{M} \lambda_{t+1}\right)_{i}} / Z_{t+1} \text { for each } i, \text { where } Z_{t+1}=\sum_{i=1}^{n} w_{i} e^{-\left(\mathrm{M} \lambda_{t+1}\right)}\\
+&\text { end }
+\end{aligned}\end{equation*}
+
+This is also adaboost:
+\begin{equation}\begin{aligned}
+j_{t} & \in \operatorname{argmin}_{j} \sum_{i} w_{i} d_{t, i}  \mathbf{1}_{\left[h_{j}\left(x_{i}\right) \neq y_{i}\right]} \\
+&=\operatorname{argmax}_{j}\left[-\sum_{i: M_{i j}=-1} w_{i} d_{t, i}\right]\\
+&=\operatorname{argmax}_{j}\left[\left[\sum_{i: M_{i j=1}} w_{i} d_{t, i}+\sum_{i: M_{i j=-1}} w_{i}d_{t, i}\right]-2 \sum_{i: M_{i j}=-1}  w_{i}d_{t, i}\right] \\
+&=\operatorname{argmax}_{j} \sum_{i: M_{i j=1}}  w_{i}d_{t, i}-\sum_{i: M_{i j=-1}} w_{i}d_{t, i}\\
+&=  \operatorname{argmax}_{j} \sum_{i=1}^{n} w_{i} M_{i j} d_{t, i}
+\end{aligned}\end{equation}
+
+\begin{equation}\epsilon_{t}=\sum_{i} w_{i}d_{t, i} \mathbf{1}_{\left[h_{j t}\left(x_{i}\right) \neq y_{i}\right]}=\sum_{i: h_{j_{t}}\left(x_{i}\right) \neq y_{i}} w_{i}d_{t, i}=\sum_{i: M_{i j_{t}}=-1} w_{i}d_{t, i}=d_{-}\end{equation}
+
+\begin{equation}\alpha_{t}=\frac{1}{2} \ln \frac{1-\epsilon_{t}}{\epsilon_{t}}=\frac{1}{2} \ln \frac{1-d_{-}}{d_{-}}\end{equation}
+
+So AdaBoost minimizes the exponential loss by coordinate descent.
+\subsection{}
+\textbf{\textit{Please find the code and answer behind}}
+
+\end{document}
