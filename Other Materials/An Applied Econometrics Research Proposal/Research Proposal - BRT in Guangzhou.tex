@@ -1,0 +1,236 @@
+\documentclass[12pt]{article}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\DeclareMathOperator*{\argmin}{\arg\!\min\:}
+\DeclareMathOperator*{\argmax}{\arg\!\max\:}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{bbm}
+\usepackage{minted}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\usepackage{amsthm}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{fancyhdr}
+
+\doublespacing
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{assumption}{Assumption}[section]
+\geometry{left=2cm,right=2cm,top=3cm,bottom=2.5cm}
+
+
+\rhead{Research Proposal}
+
+\font\myfont=cmr12 at 15pt
+\title{\myfont The Effect of Bus Rapid Transit on Rental Prices in Guangzhou \\- Difference-in-Discontinuities with a Gap \footnote{Thanks to Prof. Edward Tower, Prof. Christopher Timmins, and Prof. Rafael Dix-Carneiro for their guidance and support. All errors are mine.}}
+\author{Kai Liao  }
+\date{October 2020}
+
+
+
+\begin{document}
+
+\maketitle
+
+\rhead{Research Proposal}
+\section{Introduction}
+How large are the gains from improving public transit systems for the neighborhoods and how large are the side effects of the construction of such systems? This paper exploits the data before, during, and after the construction of the Bus Rapid Transit system (BRT) in Guangzhou and measures the effect of the construction and the opening of BRT on neighboring communities. 
+
+Many existing papers study the effect of infrastructure on rental prices using differences in differences (DiD) framework. However, the confounding policies and events pose a threat to indentification of DiD framework. The major confounding events are 2010 Guangzhou Asian Games and the development of Zhujiang Newtown CBD. Because both events may affect the rental prices in BRT region and non-BRT region differently after 2010, the common non-treatment trend assumption of DiD framework may fail. Another wildly used empirical framework for policy evaluation is the regression discontinuity design (RD) design. The RD design investigates whether there is a jump of rental prices on the opening day of the BRT. However, this framework is also not efficient for identification of the Guangzhou BRT case due to a two-year construction period. The rental price on the day before the opening of the BRT absorbs the negative effects of the construction, resulting in an upward bias of the measurement of the effect of having a BRT. The Guangzhou BRT construction caused serious congestion and pollution problems. Therefore, simply using the cutoff point of the opening day is problematic. 
+
+To solve the problems of DiD and RD frameworks, this paper introduces an adjusted "difference-in-discontinuities" (DD) design to identify the effect of having a BRT on the rental prices for the neighborhoods nearby. The DD design not only exploits the gaps at the cutoff points, but also takes differences of the gaps of the treatment group and the control to cancel out the effects of confounding events. Therefore, it can be used to overcome the failure of common non-treatment assumption of the DiD framework. Furthermore, I extend the "difference-in-discontinuities" design to two cutoff points, namely the beginning day of construction and the opening day of operation. These cutoff points separate the project into three periods, namely before, during, and after the construction. The construction period is problematic because the trend of the rental prices of the affected neighborhoods if without treatment is unobserved. To resolve this problem, I assume that this trend is identical to the control group during the construction period. This assumption is similar to the common non-treatment trend assumption of DiD framework. However, my assumption is weaker because it only apply to a short construction time interval.
+
+Although my specification provides an identification of the effects of BRT when there exists confounding events and a construction period, its credibility is still heavily depend on the common non-treatment trend assumption of the construction period. To resolve this concern, I exploit a unique feature of the Guangzhou BRT. The Guangzhou BRT was only built to the east of the city central axis. Moreover, our confounding events, namely 2010 Guangzhou Asian Games Opening and the development of Zhujiang Newtown CBD happened right at the central axis. Therefore, I can choose the neighborhoods near the roads that symmetric to the BRT as my control group. This control group has the same distance to the city center as the treatment group. As a result, one can have more confidence that the increase in rental prices would be identical between the treatment and the control group if there were no construction of the BRT.
+
+This paper is related to two sets of literature. Firstly, the adjusted difference in discontinuities design is built upon the regression discontinuity design introduced by Hahn et al. (2001) and the difference in discontinuities approach formalized by Grembi et al. (2016) and Eggers et al. (2018). My methodology adjusts these ideas and allows two cutoff points. It is more applicable in the situation when there is a construction period or there are multiple stages of a new policy. Second, my paper is related to works that estimate the effects of public transit systems, e.g., the value of travel time saved (VTTS) methods and the commuter market access (CMA)  approach (Tsivanidis, 2019). This paper is typically related to the literature that  study the effects of infrastructure on the housing prices and the rental prices (Rodriguez and Targa, 2007). This paper emphasizes the potential problems resulting from confounding policies and the construction period and provides a solution.
+
+The rest of this research proposal is organized as follows. In section 2, I provide a standard DiD approach and then develop my adjusted difference-in-discontinuities design. In section 3, I provide my plan for the future work, including proposed data collection procedures and expected results. 
+
+\section{Empirical Frameworks}
+\subsection{Differences-in-Differences Design}
+Consider $N$ communities in Guangzhou, which are indexed by $i = 1, ..., N$. We separate these communities to two groups, one is the communities in the BRT region, the other is not. We label these groups by $B$ and $\Bar{B}$ correspondingly.
+
+Define $D$ as the treatment of having a BRT around the community. Let $t_2$ be the first day of BRT operation. $D$ is given by
+\begin{equation}
+D_{i c}=\left\{\begin{array}{cc}
+1 & \text { if }  T_{i c} > t_2 \\
+0 & \text { otherwise }
+\end{array}\right.
+\end{equation}
+
+To apply differences in differences specification, we need the common non-treatment trend assumption:
+
+\begin{assumption}
+\begin{equation}
+    E[{Y}^{T_2}_{i c}(0) - {Y}^{T_1}_{i c}(0) \mid c \in L] = E[Y^{T_2}_{i c}(0) - {Y}^{T_1}_{i c}(0)  \mid c \not \in L]
+\end{equation}
+where $T_2$ is any time point such that $T_2 > t_2$ and $T_1$ is any time point such that $T_1 < t_2$.
+\end{assumption}
+
+The average treatment effect of treated is given by
+
+\begin{theorem}
+Suppose assumption 1.1 holds,
+\begin{equation}
+    ATT = \left( E[ {Y}^{T_2} \mid c \in L ] - E[ {Y}^{T_1} \mid c \in L ] \right) - \left( E[ {Y}^{T_2} \mid c \not \in L ] - E[ {Y}^{T_1} \mid c \not \in L ] \right)
+\end{equation}
+\end{theorem}
+
+To make the full use of data across a time period rather than two time points, we have the following theorem. 
+
+\begin{theorem}
+Suppose assumption 1.1 holds,
+\begin{equation}
+    ATT = E_{T_1, T_2}\left[ \left( E[ {Y}^{T_2} \mid c \in L ] - E[ {Y}^{T_1} \mid c \in L ] \right) - \left( E[ {Y}^{T_2} \mid c \not \in L ] - E[ {Y}^{T_1} \mid c \not \in L ] \right) \right]
+\end{equation}
+\end{theorem}
+
+\subsection{Adjusted-Difference-in-Discontinuities Design}
+\subsubsection{Model Setup}
+
+
+Define $M_{ic}$ are an variable that identifies pre-construction period, construction period, and post-construction period of BRT. Let $t_1$ be the beginning of the construction and $t_2$ be the first day of BRT operation. In this case, the assignment mechanism of BRT can be described  by 
+
+\begin{equation}
+M_{i l}=\left\{\begin{array}{cc}
+2 & \text { if } t_1 > T_{i c} \\
+1 & \text { if } t_1 < T_{i c} < t_2 \\
+0 & \text { otherwise }
+\end{array}\right.
+\end{equation}
+
+
+Now, we can give a definition of another treatment that can identify communities located around the BRT lines and other communities. Let $O_{ic}$ be an variable that identifies whether community $i$ is affected by the construction of BRT directly \footnote{If a community is located near the BRT lines, we call the construction of BRT has direct effect on this community. If not, it is called the spillover effect of the construction.}. In our case, $O_{ic}$ is given by 
+
+\begin{equation}
+O_{i c}=\left\{\begin{array}{cc}
+2 &\text { if } t_1 > T_{i c} \text { and } c \in B \\
+1 &\text {if } t_1 < T_{i c}<t_2 \text { and } c \in B \\
+0 & \text { otherwise }
+\end{array}\right.
+\end{equation}
+
+For a community with $O_{i c}=o$ and $M_{i c}=m$, the potential outcome is $Y_{i c}(o, m)$. We are interested in identifying the average treatment effect of $O_{it}$ at $t_2$ for $l \in B$. Denote this by $ATE_O(t_2)$. For example, if $Y$ is a measure of welfare, this ATE shows the welfare gain by having a BRT for the communities closed to the BRT lines. This $ATE_O(t_2)$ is given by
+\begin{equation}
+A T E_{O}(t_2)=E\left(Y_{i c}(2,2)-Y_{i c}(0,2) \mid T_{i l}=t_2\right)
+\end{equation}
+
+\subsubsection{Identification}
+Using the similar notation of Hahn, Todd, and Van der Klaauw (2001), I define 
+\begin{equation}
+    \begin{split}
+        Z^{1,-} &=\lim _{x \rightarrow t^{-}_1} E\left[Z_{i c} \mid T_{i c}=x\right]\\
+        Z^{1,+} &=\lim _{x \rightarrow t^{+}_1} E\left[Z_{i c} \mid T_{i c}=x\right]\\
+        Z^{2,-} &=\lim _{x \rightarrow t^{-}_2} E\left[Z_{i c} \mid T_{i c}=x\right]\\
+        Z^{2,+} &=\lim _{x \rightarrow t^{+}_2} E\left[Z_{i c} \mid T_{i c}=x\right]\\
+    \end{split}
+\end{equation}
+
+I use tilde or bar notation similar to Galindo-Silva et al.(2019) to distinguish the treatment group and the control group, i.e., $\tilde{Z}_{i c}=1\{c \in L\} Z_{i c}$ and $\bar{Z}_{i c}=1\{c \in \bar{L}\} Z_{i c}$. In my setting, $Z$ can be $Y,Y(2,2)$ $, Y(2,1)$ $, Y(2,0), Y(1,2)$ $, Y(1,1), Y(1,0)$ $, Y(0,2),Y(0,1), Y(0,0)$.
+
+To identify the causal effect of having BRT, I propose a estimand that exploit the discontinuous variation at $t_1$ and $t_2$ for both treatment group and control group:
+
+\begin{equation}
+    \hat{\tau}_{D D} \equiv\left(\bar{Y}^{2,+}-\bar{Y}^{1,-}\right)-\left(\tilde{Y}^{2,-}-\tilde{Y}^{1,+}\right)
+\end{equation}
+
+I will provide sufficient assumptions that allow $\hat{\tau}_{D D}$ to identify $A T E_{O}(t_2)$.\\
+
+
+
+\begin{assumption}
+All potential outcomes, i.e., $E\left[Y_{ic}(o, m) \mid T_{i c}=x\right]$ for all $o \in O_{i c}$ and $M_{i c}=m$, are continuous in $x$ at $t_1$ and $t_2$.
+\end{assumption}
+
+
+
+
+Assumption 1 is a standard assumption for regression discontinuity identification. This continuity assumption allows us to take the limits at two cutoff points, This assumption gives us the following equation:
+\begin{equation}
+Y^{t,+}_{ic}(o,m) = Y^{t,-}_{ic}(o,m) = Y^{t}_{ic}(o,m) \text{, for all } t\in {1,2} \text{ and } o,m\in {0,1,2}
+\end{equation}
+
+\begin{assumption}
+The trends of $Y(0,1)$ are common across both groups between $t_1$ and $t_2$, i.e., 
+\begin{equation}
+    E[{Y}^{2}_{i c}(0,1) - {Y}^{1}_{i c}(0,1) \mid c \in L] = E[Y^{2}_{i c}(0,1) - {Y}^{1}_{i c}(0,1)  \mid c \not \in L]
+\end{equation}
+or equivalently, 
+\begin{equation}
+    E[\bar{Y}^{2}_{i c}(0,1) - \bar{Y}^{1}_{i c}(0,1)] = E[\tilde{Y}^{2}_{i c}(0,1) - \tilde{Y}^{1}_{i c}(0,1)]
+\end{equation}
+\end{assumption}
+
+This assumption suggests that during the construction period of BRT, if the treatment group has not taken the effect of construction, it would have the same potential outcome as the control group.
+
+\begin{assumption}
+The confounding effects only affect the control group at $t_1$ and $t_2$. Specifically, 
+\begin{equation}
+    \bar{Y}^{1}_{i c}(0,1) = \bar{Y}^{1}_{i c}(0,0)
+\end{equation}
+and
+\begin{equation}
+    \bar{Y}^{2}_{i c}(0,1) = \bar{Y}^{2}_{i c}(0,2)
+\end{equation}
+\end{assumption}
+
+The confounding effects here are considered as the spillover effect of the construction and operation of BRT. For example, the congestion caused by the construction of BRT might lead to a sudden rise in the rent of the control group. However, this spillover would not affect the treatment group.
+
+\clearpage
+\begin{theorem}
+Under assumption (2.1) - (2.3), $\hat{\tau}_{D D}$ identifies 
+\begin{equation}
+    A T T_{O}(t_2)=E\left(\bar{Y}_{i c}(2,2)-\bar{Y}_{i l}(0,2) \mid T_{i c}=t_2\right)
+\end{equation}
+\end{theorem}
+
+
+
+\begin{proof}
+\begin{equation}
+\begin{split}
+    \hat{\tau}_{D D} &\equiv\left(\bar{Y}^{2,+}-\bar{Y}^{1,-}\right)-\left(\tilde{Y}^{2,-}-\tilde{Y}^{1,+}\right)
+    \\
+    &= \left(\bar{Y}^{2}(2,2)-\bar{Y}^{1}(0,0)\right) - \left(\tilde{Y}^{2}(0,1)-\tilde{Y}^{1}(0,1)\right)\\
+    &= \left(\bar{Y}^{2}(2,2)-\bar{Y}^{1}(0,0)\right) - \left(\bar{Y}^{2}(0,1)-\bar{Y}^{1}(0,0)\right)\\
+    &= \left(\bar{Y}^{2}(2,2)-\bar{Y}^{1}(0,0)\right) - \left(\tilde{Y}^{2}(0,2)-\tilde{Y}^{1}(0,0)\right)\\
+    &= \bar{Y}^{2}(2,2)- \tilde{Y}^{2}(0,2)\\
+\end{split}
+\end{equation}
+\end{proof}
+
+
+
+\section{Future Work}
+The rental prices data can be collected through house agencies operated from 2005 to 2015, such as, Mang Tang Hong, Liang Jia, and 58 Tong Cheng. Part of the data have been collected. I will then implement the empirical framework suggested in section 2. I expect a positive effect of having a BRT on rental prices estimated by $\hat{\tau}_{D D}$. The result from adjusted differences-in-discontinuities design would be smaller than RD design and DiD approach because it would have filtered out the effect of confounding events and the construction period. 
+
+
+
+\clearpage
+
+\textbf{Figures}
+
+\begin{figure}[H]
+\caption{Timeline of Guangzhou BRT}
+\centering
+\includegraphics[width=15cm]{figure1.png}
+\end{figure}
+
+\begin{figure}[H]
+\caption{Adjusted Difference-in-Discontinuities Framework}
+\centering
+\includegraphics[width=15cm]{figure2.png}
+\end{figure}
+
+
+\end{document}
