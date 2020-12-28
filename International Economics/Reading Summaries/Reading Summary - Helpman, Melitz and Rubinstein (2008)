@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=2.5cm,right=2cm,top=2cm,bottom=2.5cm}
+
+\title{Reading Summary - Helpman, Melitz and Rubinstein (2008)}
+\author{kai.liao }
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+
+This paper extends and also simplifies the Melitz - Chaney (2003, 2008) models. It allows firm heterogeneity, asymmetric trade flows and zero bilateral trade flows. The production distribution of firm is truncated in this model, making countries with high production cost (country specific variable) and bilateral trade cost have 0 bilateral trade volume. For simplicity, this paper also assumes a Pareto distribution of production. The bilateral trade volume is given by,
+\begin{equation}
+    V_ij = \frac{ka_L^{k-\epsilon+1}}{(k-\epsilon+1)(a_H^k - a_L^k)}W_{ij}
+\end{equation}
+where,
+\begin{equation*}
+    W_{ij} = \max \left\{ \left( \frac{a_{ij}}{a_L}^{k-\epsilon+1} - 1 \right), 0 \right\}
+\end{equation*}
+
+Another contribution of this paper is its empirical specification. After taking the log form of the gravity equation and combine the items with the This regression equation is first given by,
+\begin{equation}
+    m_{ij} = \beta_0 + \lambda_j +\chi_i-\gamma d_{ij} + w_{ij} + u_{ij}
+\end{equation}
+where $d_{ij}$ is the trade barrier and $w_{ij}$ is the fraction of firms that export from $j$ to $i$.
+
+However, the above equation is biased for two reasons. First,$w_{ij}$ is unobserved and confound with $d_{ij}$. Second, The model is truncated because we only observed country pairs with positive trade flows (selection of data). 
+n of a latent variable $z_{ij}$ (ratio of variable export profits for the most productive firm to the fixed export costs). 
+The solution to the first problem is to write $w_{ij}$ as a functio$z_{ij}$ is given by,
+\begin{equation}
+    z_{ij} = \gamma_0 + \xi_j +\zeta_i -\gamma d{ij} - \kappa \phi_{ij} + \eta_{ij}
+\end{equation}
+If we assume iid of $\eta_{ij}$ and normalize its variance, we can run probit regression. This is the first step.
+\begin{equation}
+    \Pr (T_{ij} \mid observables) = \Phi(\gamma_0 + \xi_j +\zeta_i -\gamma d{ij} - \kappa \phi_{ij})
+\end{equation}
+After considering the selection problem, it then propose a consistent estimator for $E[w_{ij} \mid observables, T_{ij} = 1]$,
+\begin{equation}
+    ln\{\exp{{\delta(\hat{z_{ij}}+\hat{\eta_{ij}})}}\} \xrightarrow{p~~?}E[w_{ij} \mid observables, T_{ij} = 1]
+\end{equation}
+The second step comes after,
+\begin{equation}
+    m_{ij} = \beta_0 + \lambda_j +\chi_i-\gamma d_{ij} + ln\{\exp{{\delta(\hat{z_{ij}}+\hat{\eta_{ij}})}}\} + \beta_{u\eta}\eta_{ij}+e_{ij}
+\end{equation}
+
+The further reveals some deficiencies of this empirical strategy. First, incidental parameter problem of the first stage. This problem is caused by increasing number of parameters with sample size when we do probit regression. It is a common problem when we have nonlinear panel data. Second, $ln\{\exp{{\delta(\hat{z_{ij}}+\hat{\eta_{ij}})}}\} \xrightarrow{p}E[w_{ij} \mid observables, T_{ij} = 1]$ is a wrong statement. It can be shown by Jensen inequality. Although the LHS is a good approximation of the RHS when  $\delta(\hat{z_{ij}}+\hat{\eta_{ij}})$ is large enough, the biased in the second stage is still not negligible. 
+\end{document}
