@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=2.5cm,right=2cm,top=2cm,bottom=2.5cm}
+
+\title{Reading Summary - Melitz (2003)}
+\author{kai.liao }
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+
+Melitz (2003) develops a dynamic industry model with heterogeneous firms to analyze the intra-industry effects of international trade. The main result shows that international trade lead to reallocations towards more productive firms and therefore increase aggregate productivity and welfare.
+
+\section{Features of Firms - Heterogeneity}
+\begin{itemize}
+    \item \textbf{The sources of heterogeneity} While the entry cost $f_e$ is fixed, the productivity level and events of bad shock are RVs. The productivity of firms $\varphi$ are drawn from a common distribution $g(\varphi)$ and firms face a constant probability of exit $\delta$ in every period.
+    \item \textbf{The implications of heterogeneity} We are interested in the following features of firms that can be pinned down when we know a realization of the random variable $\varphi$.
+    $$\text{value of a firm:~~~~~} V(\varphi)= \max \left\{ 0, \frac{1}{\delta}\pi(\varphi) \right\}$$
+    $$\text{the least productivity of surviving firms:~~~~} \varphi^* = \inf \{\varphi \mid \pi (\varphi) > 0\}$$
+    $$\text{the distribution $\varphi$ of survivals: ~~~~} \mu (\varphi) = 1[\varphi \geq \varphi^*]\left[\frac{g(\varphi)}{1-G(\varphi^*)}\right] $$ 
+    
+\end{itemize}
+\section{Equilibrium Conditions - Closed Economy}
+Our objective is to write the average profit $\Bar{\pi}$ as functions of $\varphi^*$ and then solve for equilibrium.
+\begin{itemize}
+    \item \textbf{Zero Cutoff Profit Condition} For a firms that has a realization of $\varphi$ lies just at to cutoff point, i.e., $\varphi = \varphi^*$, it must have 0 profit. It is a increasing function of $\varphi^*$.
+    $$\pi(\varphi^*) = 0 ~~ \Longleftrightarrow ~~~\Bar{\pi} = fk(\varphi^*) \text{~~~~~~~~(ZCP)~~~}$$
+    \item \textbf{Free Entry Conditions} The idea is that firms will enter when the net value of entry is positive will not enter (since there is a rate of exit in every period, the total number of firms will decrease under this scenario) when the net value of entry is negative, leading to a zero net value of entry. It is a decreasing function of $\varphi^*$
+    $$v_e = p_{in} - f_e = \frac{1-G(\varphi^*)}{\delta}\Bar{\pi} - f_e$$
+    $$\Rightarrow \Bar{\pi} = \frac{\delta f_e}{1-G(\varphi^*)} ~~~~~~~~~~~~~~\text{(FE)}$$
+    
+\end{itemize}
+\section{Equilibrium Conditions - Open Economy}
+The Equilibrium conditions in open economy is very similar to the one in the closed economy. Here we need to consider a new cutoff of technology for export $\varphi^*_x$. Note that we assume trade cost exist, therefore, $\varphi^*_x < \varphi^*$.The intuition here is that a bad company would not produce, a median company would only produce for domestic customers, and a good company (good enough to enter and survive in global market) would produce for all customers. Now we can include $\varphi^*_x$ to our ZCP condition.
+$$\Bar{\pi} = fk(\varphi^*) + p_x n f_x k (\varphi_x^*) ~~~~~~~~~~\text{(ZCP*)}$$
+This new ZCP condition shows a outward shift of ZCP curve, leading to a greater equilibrium \textit{average} profit $\Bar{\pi}$. However, on the firms level, only firms that have a $\varphi$ large enough to enter global market would benefit and firms that cannot enter global market would even lose their domestic market share. This is the most important finding of this paper.
+
+
+
+\end{document}
