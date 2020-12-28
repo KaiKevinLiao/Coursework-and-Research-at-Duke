@@ -1,0 +1,1 @@
+This folder contains some of the codes when I learn CGE implementation with Prof. Rafael Dix-Carneiro. Most of the codes are related to the working paper "GLOBALIZATION, TRADE IMBALANCES AND LABOR MARKET ADJUSTMENT".
