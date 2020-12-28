@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2.5cm}
+
+\usepackage[utf8]{inputenc}
+
+\title{Reading Summary - Dix-Carneiro (2014)}
+\author{kai.liao }
+\date{April 2020}
+
+\begin{document}
+
+\maketitle
+
+This paper develops a structural dynamic equilibrium model with SOE with tradeable and non-tradeable sectors and heterogeneous workers to estimate the Brazilian labor market. This paper further conducts a hypothetical trade liberalization counterfactual experiment.
+
+\section{Human Capital Supply}
+\begin{enumerate}
+    \item \textit{Overlapping Generations. } In the model, we assume labors leave the labor market at the age of 60 and young labors enter the market every year. This feature is important for two reasons. First, it allows heterogeneous mobility cost across ages. Second, it allows another channel of labor mobility: new labor entering sectors disproportionately will lead to mobility naturally. 
+    \item \textit{Sector-specific Experience. } Labor working in a sector will automatically accumulate sector-specific experience. This experience is endogenous to a labor's decision. Note that this experience tend to 'trap' labors in a specific sector. 
+    \item \textit{Mobility Costs. } Mobility costs depends on the sector from which the labor transfer, the sector to which the labor transfer, gender, education, age, and idiosyncratic structural shocks.
+    \item \textit{Wages. } This paper use the idea of efficient labor. Sector specific wages is a product of price of one unit of human capital and the amount of human capital that provides by a labor. Human capital of a labor depends on the skill category, gender, education, age, and idiosyncratic structural shocks. 
+\end{enumerate}
+\section{Human Capital Demand}
+This paper has a CES production function. The input bundle includes unskilled workers (human capital from "less than high school" workers), skilled workers (human capital from "high school or higher" workers), and physical capital. The factor markets in this paper is perfectly competitive. Note that the shares of inputs are time-variant and this paper restrict a linear structure to human capital shares.
+
+\section{Estimation and Results}
+This paper estimate parameters by initial conditions and indirect inference. One of the interesting findings is the distribution of costs of mobility. After normalizing by average annual wage of individuals, Dix-Carneiro finds that the average cost of mobility is between 1.3-2.2 annual wage. What's more, the degree of dispersion of the distribution of costs of mobility is high, which highlights the importance of introducing heterogeneous labors.
+\section{Counterfactual}
+This paper conduct the following counterfactual experiment. The counterfactual economy assumes a 30\% decrease in tariff on high-tech manufacturing, i.e., prices of high-tech products decrease by 30\% (small open economy assumption). It also assume that workers can perfectly foreseen the wages. We can simulate this process by guessing the worker's wage trajectory and then iterating the model until the wages converge. The results depends on how we assume the capital mobility. First, with perfectly mobile capital, the HT sector will virtually die out after 5 years and the workers in this sector will suffer from big welfare loss. Second, with no capital mobility, the wage of labors will gradually recover after suffering the shock because sector-specific capital is stuck in the HT manufacturing. Third, with 5\% annual capital mobility,  the wage of labors will recover in medium run but then decrease after capital leaving HT manufacturing, and the HT manufacturing will eventually die out. A key takeaway here is that, the dynamic wages after a shock depend on how fast labor leaves the sector and how fast capital move away from the sector. The dynamic of capital movement is critical to see how economy responds to price shock.
+\end{document}
