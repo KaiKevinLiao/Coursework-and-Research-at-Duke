@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2.5cm}
+
+\usepackage[utf8]{inputenc}
+
+\title{Referee Report on Caliendo, Dvorkin and Parro (2019)}
+\author{Kai Liao}
+\date{April 2020}
+
+
+\begin{document}
+\maketitle
+In this paper, Caliendo, Dvorkin and Parro study the general equilibrium effects on U.S. labor markets of the increase in Chinese import penetration into the U.S. market from 2000 to 2007, which is resulting from a surge in China's productivity. This referee report focus on four parts. First, I summarize the main methodology and results of this paper. After that, I highlight some contributions to see how this paper fits in and evolves other literature. Then I list some assumptions to which the result is sensitive. At last, I give some possible extension of this framework. 
+\section{Summary}
+    Caliendo et al. develop a dynamic spatial trade and migration model base on Artuç, Chaudhuri, and McLaren (2010) setup for household and Eaton and Kortum (2003) and Caliendo and Parro (2015) setup for production. They solve the model and counterfactual using hat algebra extended from Caliendo and Parro (2015). They further estimate China's productivity shock using IV introduced by Autor, Dorn, and Hanson (2013) and eventually estimate the employment effect and the welfare effect of China's trade shock.
+\begin{enumerate}
+    \item \textit{Labor Supply. } The labor supply is derived from the forward-looking labor who need to decide which sector and region to work or unemployed in the next period. Labors make their decisions based on their location, the state of the economy, sectoral and spatial mobility costs, and an idiosyncratic shock. They further assume the idiosyncratic shock $\epsilon$ is i.i.d. over time and distributed Type-I Extreme Value with zero mean to get a close form expression for lifetime utility as (2).
+    \begin{equation}
+        v^{nj}_t = U(C_t^{nj})+\max_{i,k}\left\{\beta E[v_{t+1}^{ik}]-\tau^{nj,ik}+\nu \epsilon_t^{ik}\right\}
+    \end{equation}
+    \begin{equation}
+        V^{nj}_t = U(C_t^{nj})+\nu\log\left( \sum_i^N \sum_k^J \exp(\beta V_{t+1}^{ik}-\tau^{nj,ik})^{1/\nu} \right)
+    \end{equation}
+    \item \textit{Production. } Production follows the multisector model of Caliendo and Parro (2015) and the spatial model of Caliendo, Parro, Rossi-Hansberg, and Sarte (2018). In this setup, intermediate variety $q_t^{nj}$ is produced with labor, structures inputs, and composite intermediate. Composite intermediate, which is a aggregation of intermediate variety, can also be used to produce final good. 
+    \begin{equation}
+        q_t^{nj} = z^{nj} (A_t^{nj}(h_t^{nj})^{\xi^n}(l_t^{nj})^{1-\xi^n})^{\gamma^{nj}}\prod_k(M_t^{nj,nk})^{\gamma^{nj,nk}}
+    \end{equation}
+    Note that intermediate variety is traded across countries and regions. They further assume the variety specific productivity component Frechet distribution. This gives a standard E-K trade pattern. 
+    \item \textit{Equilibrium, Counterfactual and Hat Algebra. } I list the parameter of the equilibrium system in table 1. Rather than solving the entire system, they use dynamic hat algebra $\dot{y}_{t+1} \equiv y_{t+1}/y_{t}$ and restrict some structure to preferences and fundamentals to eliminate the dependence of the level of fundamentals. Proposition 1 and proposition 2 give a system to solve for temporary equilibrium and sequential equilibrium. They further derive proposition 3 to solve for counterfactual. Proposition 3 introduce another hat algebra $\hat{y}_{t+1} \equiv \dot{y}_{t+1}' / \dot{y}_{t+1}$. Using this hat algebra, they do not need information on the baseline fundamentals to solve the systems. 
+    \item \textit{Estimation. } The basic estimation strategy is listed in table 2 and table 3. An important step is using Autor, Dorn, and Hanson (2013) to recover the change in China's industry specific productivity. 
+    They instrument the changes in real U.S. imports from China by the the changes in other advanced economies imports from China to get the predicted U.S. imports from China and then use  their dynamic model to solve for the TFP changes that minimize a weighted-sum of squares of the difference between the change in the predicted U.S. imports from China over 2000–2007.
+    
+    \item \textit{Results} They solve for China's effect according to the following steps. They first use Proposition 2 to compute the baseline economy from 2007 forward assuming constant fundamentals thereafter and then use the results from Proposition 3 to solve for the difference between  baseline economy and a counterfactual economy, assuming that the counterfactual economy has the same fundamentals except China's productivity. One important assumption here is that China's productivity shocks are orthogonal to all other fundamentals. They have two key results: first, China shock lead to 0.36 percent decrease in manufacturing employment after 15 years in the U.S.; second, U.S. aggregate welfare increases by 0.2 percent due to China productivity shock.
+\end{enumerate}
+
+\begin{table}[h!]
+\begin{center}
+ \begin{tabular}{c |c| c| c} 
+ \hline
+ Parameter & Interpretation & Group & Estimation/Data Source \\ [0.5ex] 
+ \hline\hline
+ $L$ & distribution of labor & - & PUMS \\ 
+\hline
+ $A$ &  sectoral-regional productivities & $\Theta_t$ & China's part from ADH (2013) \\
+ \hline
+ $\kappa$ & trade costs & $\Theta_t$ & - (we don't need this) \\
+ \hline
+ $\tau$ &  labor relocation costs  & $\overline{\Theta}$ & CPS/PUMS \\
+ \hline
+ $H$ & the stock of land and structures  & $\overline{\Theta}$ & - \\ 
+ \hline
+ $b$ & home production  & $\overline{\Theta}$ & - \\ 
+ \hline
+\end{tabular}
+\end{center}
+\caption{Fundamentals}
+\label{table:1}
+\end{table}
+
+\begin{table}[h!]
+\begin{center}
+ \begin{tabular}{c |c| c} 
+ \hline
+ Parameter & Interpretation  & Estimation/Data Source  \\ [0.5ex] 
+ \hline\hline
+ $\gamma$ & value added share/input output coefficients & BEA/WIOD \\ 
+ \hline
+ $1-\xi$ & labor shares & BEA/OECD  \\
+ \hline
+ $\iota$ & portfolio shares & Formula given in Appendix E  \\
+ \hline
+ $\alpha$ & final consumption expenditure shares & Formula given in Appendix E  \\
+ \hline
+ $\beta$ & discount factor & Assume to be 0.99 quarterly \\ 
+ \hline
+ $\theta$ & trade elasticity & Caliendo and Parro (2015)  \\ 
+ \hline
+ $\nu$ & migration elasticity & Artuç, Chaudhuri, and McLaren (2010)   \\ 
+ \hline
+\end{tabular}
+\end{center}
+\caption{Parameters}
+\label{table:1}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+ \begin{tabular}{c |c| c} 
+ \hline
+ Parameter & Interpretation  & Estimation/Data Source  \\ [0.5ex] 
+ \hline\hline
+ $\mu$ & migration shares & CPS/PUMS \\ 
+ \hline
+ $w$ & equilibrium wages & -  \\
+ \hline
+ $\pi$ & bilateral trade shares & WOID  \\
+ \hline
+ $X$ & equilibrium allocations & CFS  \\
+ \hline
+\end{tabular}
+\end{center}
+\caption{Equilibrium Outcomes}
+\label{table:1}
+\end{table}
+
+\section{Contribution}
+\begin{enumerate}
+    \item This paper introduces a dynamic spatial trade and migration model follows the reduced form specification of Autor, Dorn, and Hanson (2013). They formalized the assumptions and structures we need to compute and estimate the general equilibrium and welfare effects over time of China's productivity shock.
+    \item This paper extend the model of Caliendo and Parro (2015) by adding two dimensions, namely regions and time. It can also be seen as a dynamic extension of Eaton and Kortum (2003) with multiple sectors, multiple regions, and intersectoral/interregional linkages. These intersectoral/interregional linkages amplify the effect of China's production shock and allow effects on untradable sectors. 
+    \item They incorporate location, the state of the economy, sectoral and spatial mobility costs, and an idiosyncratic shock to labor supply à la Artuç, Chaudhuri, and McLaren (2010). This gives a dynamic discrete choice model. This setup is also used in Dix-Carneiro(2014). It is a big improvement compared to previous literature on NAFTA (Caliendo and Parro, 2015), which only has a cobb-douglas utility function. 
+    \item They use "\textit{dynamic} hat algebra" to study the effects of actual or counterfactual changes to fundamentals using a dynamic discrete choice spatial trade model. The idea of "hat algebra" was first developed by Dekle and Kortum (2007) and was used in Caliendo and Parro (2015) to solve for the counterfactual of change in trade policy. In this paper, they first use the "dynamic hat algebra", denoted by $\dot{y}_{t+1} \equiv y_{t+1}/y_{t}$ to solve for the baseline economy in time differences. And then, they use the "hat algebra of the dynamic hat algebra", denoted by $\hat{y}_{t+1} \equiv \dot{y}_{t+1}' / \dot{y}_{t+1}$ to solve for counterfactual. 
+\end{enumerate}
+\section{Key Assumptions}
+There are several assumptions which are important for solving for the model and counterfactual. 
+\begin{enumerate}
+    \item \textit{Perfect foresight assumption. } Adding perfect foresight assumption allows us to solves for the head algebra in the model. As the paper states, this assumption can significantly reduce the computational burden. 
+    \item \textit{Agents have logarithmic preferences}, $U(C_t^{nj}) \equiv log(C_t^{nj})$. We need to assume this structure for preferences to derive a equilibrium system which purely depends on dynamic hat algebra. Noting that, if the preferences follows other structures, e.g. linear preference, the system of equations may be contaminated by the level of fundamentals 
+    \item \textit{The sequence of changes in fundamentals converges to 1 over time as the economy approaches the stationary equilibrium, $\lim_{t\rightarrow\infty}\dot{\Theta_t} = 1$.} This trick makes $\dot{\Theta}_t = (1, 1)$ and $\bar{\Theta}_t = (1, 1, 1)$. Therefore, by computing the model in time differences, they do not need to identify any fundamentals of the economy.
+    \item \textit{The idiosyncratic shock $\epsilon$ is i.i.d. over time and distributed Type-I Extreme Value with zero mean.} This is a standard assumption in discrete choice model. The purpose is to get a close form expression for lifetime utility.
+\end{enumerate}
+\section{What to Expect Next}
+\begin{enumerate}
+    \item \textit{Heterogeneous Labors. } The labor in this paper is assumed to be identical and the mobility is only driven by i.i.d. idiosyncratic shock $\epsilon$. One way to extent this model is to introduce heterogeneous labor as Dix-Carneiro (2014)\footnote{Labors are heterogeneous in the aspect of skill level, gender, education, experience in specific sector, etc..}. Heterogeneous labor can better mimic labor market because labors with different characteristics are meant to have different lift time utility and mobility costs. However, with heterogeneous labors, it may be difficult to acquire Propositions in the paper because we cannot get the hat algebra for the labor migration parameter $\mu$. What's more, we may also have some estimation/computation problem.
+    \item \textit{Capital Dynamics. } In the paper, the model cannot recognize the capital mobility friction and its effects. Capital mobility friction may have significant regional/sectional welfare and employment effects (Dix-Carneiro, 2014). The capital dynamics may amplify the negative effects on U.S. manufacturing sectors and labors and may these effects may increase over a long period of time (Dix-Carneiro and Kovak, 2017). 
+    \item \textit{Relaxing the Perfect Foresight Assumption. } Perfect foresight does not mimic how people make decision. There are several alternative assumptions. For example, we can assume stochastic fundamentals or people only observe lagged fundamentals, or we can have no assumption at all. 
+    \item \textit{Beyond China's TFP Change} An important step of this paper is using China's export change to recover China's TFP growth. This method could have some problems. China's TFP growth may not be the only source of increasing export from China. For example, this extraordinary growth in import from China can be attributed to China's trade policy, growing market confidence, and mitigation of policy uncertainty (Pierce and Schott, 2016). In this paper, the authors' claim that their estimation of China's productivity changes is consistent with Brandt, Van Biesebroeck, and Zhang's (2012) computation of annual Chinese TFP growth seems to be misleading. 
+    
+\end{enumerate}
+\end{document}
+        
