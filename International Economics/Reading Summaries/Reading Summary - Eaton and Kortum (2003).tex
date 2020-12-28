@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=2.5cm,right=2cm,top=2cm,bottom=2.5cm}
+\begin{document}
+
+
+\title{Reading Summary - Eaton and Kortum (2003)}
+\author{Kai Liao}
+\date{January 2020}
+
+
+
+\maketitle
+
+Eaton and Kortum (2003) propose an extension of Ricardian Model. Inspiring by the fact that trade diminishes with barriers and distance, they incorporate geographic features into Dornbusch et.al (1977) model of Ricardian trade. Their model deals with a continuum of goods $j \in [0, 1]$ and a countable set of countries $\left\{ i:i = 1...I \right\}$. They made following assumptions:
+
+1. Aggregate consumption in country $i$ is given by $U_i=\left[\int_{0}^{1}Q_i(j)^\frac{\sigma-1}{\sigma}dj\right]^\frac{\sigma-1}{\sigma}$,  where $Q(j)$ is the amount of good j purchased by country i under maximization.
+
+2. Price of good j produced in country i then exported to country n is given by $p_{ni}(j)=\frac{c_i}{z_i(j)}d_{ni}$, where $c_i$ is the homogeneous input price in country i, $z_i(j)$ is the productivity of good j in country i, and $d_{ni}$ is the distance or trade barrier.
+
+3. Perfect competition across suppliers, i.e., countries only buy the good from the exporter who offer the lowest price.
+$p_n(j) = min\left\{p_{ni}(j):i = 1...I\right\}$
+
+4. $z_i(j)$ is the realization of a RV $Z_i$, which is assumed to have a Freshet CDF,
+$F_i(z)=e^{-T_iz^{-\theta}}$,   $T_i$ represents absolute advantage and $\theta$ represent comparative advantage.(It is obvious from the CDF)
+\\
+
+Base on these assumptions, Eaton and Kortum first calculate the distribution of prices, then derive the share of goods that $n$  buys from $i$, i.e., probability that $i$ provides the lowest price of good in country $n$. For interpretation, I write it in log form,
+$$\ln{X_{ni}} = \ln{T_ic_i^{-\theta}}+\ln{X_n\phi_n^{-1}-\theta\ln{d_{ni}}}$$
+where  $\ln{T_ic_i^{-\theta}}$ represents exporter fixed effect, $\ln{X_n\phi_n^{-1}}$ represents importer fixed effect, and $\theta\ln{d_{ni}}$ represents gravity (decrease in $d_{ni}$). The import can also be normalized by exporters' share at home,
+$$\frac{X_{ni}/{X_n}}{{X_{ii}}/{X_i}}=\left(\frac{P_id_{ni}}{P_n}\right)^{-\theta}$$
+In order to estimate $\theta$ empirically, the derive the following equation as an approximation of the above one,
+$$\ln{\frac{X_{ni}/{X_n}}{{X_{ii}}/{X_i}}}\approx-\theta\left(\frac{max_j\left\{p_n(j)-p_i(j)\right\}}{mean_j\left[p^n(j)-p_i(j)\right]}\right)$$
+
+This paper then close the model by solving the factor markets and general equilibrium. I still have some difficulties understand this part.The results eventually lead to some equations for which $\theta$ can be identified.However, the $\hat{\theta}$ is highly sensitive to the estimation strategies. 
+
+The counterfactuals of this paper is very interesting. First, the gains from free trade can be measured by the utility increase from $d_{ni} \xrightarrow{}\infty$ to $d_{ni} \xrightarrow{}1$.Second, US unilateral tariff elimination would benefit everyone expect itself. Third, if trade barriers decline smoothly with mobile labor, we would observe non-monotonous changes in manufacturing in both counties.
+\clearpage
+\section{Model}
+\textbf{goods}: $j \in [0, 1]$     \textbf{countries}:  $\left\{ i:i = 1...I \right\}$\\
+\textbf{Constant Return to Scale}\\
+\textbf{Perfect Competition}\\
+\\
+\textbf{Equation 1}
+$$p_{ni}(j)=\frac{c_i}{z_i(j)}d_{ni}$$
+Note that, Autarky: $d_{ni} \xrightarrow{} 0$; Free trade: $d_{ni} \xrightarrow{} \infty$ \\
+\textit{proof:}\\
+Assume we have a Cobb-Douglas CRS production function for a country $i$, 
+$$q = z(j)l^\beta m^{1-\beta}$$
+The cost minimization problem, 
+$$\min wl+pm \text{  ~~~s.t. ~~  } q(j,l,m)=1$$
+Solve this minimization problem,
+\begin{equation*}
+    \begin{split}
+        &\frac{MPL}{MPK} = \frac{\beta}{1-\beta} \frac{m}{l} = \frac{w}{p}\\
+        \Rightarrow & m = \frac{1-\beta}{\beta}\frac{w}{p}l\\
+        \text{by } &  q = z(j)l^\beta m^{1-\beta}\\
+        \Rightarrow & l = z^{-1} \left( \frac{1-\beta}{\beta} \frac{w}{p} \right)^{(\beta - 1)}\\
+        & m = z^{-1} \left( \frac{1-\beta}{\beta} \frac{w}{p} \right)^\beta \\
+    \end{split}
+\end{equation*}
+\begin{equation*}
+    \begin{split}
+        \min wl+pm &= \left( \frac{1-\beta}{\beta} \right)^{\beta-1} \frac{w^\beta}{p^{\beta-1}}{z(j)}^{-1}\\
+        &= K\frac{w^\beta p^{1-\beta}}{z(j)}\\
+        &= K\frac{c}{z(j)}
+    \end{split}
+\end{equation*}
+where $K = \left( \frac{1-\beta}{\beta} \right)^{\beta-1}$ and $\beta p^{1-\beta}$
+\clearpage
+
+
+\noindent\textbf{Property 1 Equation 8}
+$$\pi_{ni} = \frac{T_i(c_i d_{ni})^{-\theta}}{\Phi_n}$$
+
+\textit{Proof: }\\
+by definition, $\pi_{ni}$ is the probability that country $i$ provides a good at lowest price in country $n$, i.e.,
+\begin{equation*}
+\begin{split}
+    \pi_{ni} &=Pr\left[p_{ni}=\min\{p_{nk}; k = 1, 2, 3, ..., N\}\right]\\
+    &=Pr[p_{ni}\leq\min\{p_{ns};\forall s \neq i\}]\\
+    &=E\left[E\left[  \mathbbm{1}[p_{ni}\leq\min\{p_{ns};\forall s \neq i\}]\mid p_{ni}\right]\right]\\
+    &=E\left[ Pr\left[ p_{ni}\leq\min\{p_{ns};\forall s \neq i\}\mid p_{ni}\right] \right]   \\
+    &=\int_0^\infty \prod_{s\neq i}(1-G_{ns}(p))dG_{ni}(p)\\
+    &=\int_0^\infty \prod_{s\neq i} exp{\left\{ -T_i (c_i d_{ns})^{-\theta} p^\theta \right\}} \diff \left\{1-exp\left\{T_i (c_i d_{ni})^{-\theta} p^\theta   \right\}\right\}\\
+    &=-\int_0^\infty \prod_{s = 1}^{n} exp{\left\{ -T_i (c_i d_{ns})^{-\theta} p^\theta \right\}} \diff \left[T_i (c_i d_{ni})^{-\theta} p^\theta   \right]\\
+    &=-\int_0^\infty exp\left\{  \sum_{s=i}^{n} \left[ -T_i (c_i d_{ns})^{-\theta} p^\theta \right] \right\} \diff \left[T_i (c_i d_{ni})^{-\theta} p^\theta   \right]\\
+    &= -\int_0^\infty T_i (c_i d_{ni})^{-\theta}    exp\left\{  \sum_{s=i}^{n} \left[ -T_i (c_i d_{ns})^{-\theta} p^\theta \right] \right\} \diff \left(p^\theta   \right)\\
+    &= -T_i (c_i d_{ni})^{-\theta} \int_0^\infty    exp\left\{  \sum_{s=i}^{n} \left[ -T_i (c_i d_{ns})^{-\theta} p^\theta \right] \right\} \diff \left(p^\theta   \right)\\
+    &= -T_i (c_i d_{ni})^{-\theta} \int_0^\infty    exp\left\{  \Phi_n p^\theta  \right\} \diff \left(p^\theta   \right)\\
+    &= -T_i (c_i d_{ni})^{-\theta} \frac{exp\left\{  \Phi_n p^\theta  \right\}}{\Phi_n} \Big|_{p^\theta = 0}^{p^\theta = \infty} \\
+    &= \frac{T_i(c_i d_{ni})^{-\theta}}{\Phi_n}\\
+\end{split}
+\end{equation*}
+\clearpage
+
+
+\textbf{Property 2}
+$$Pr\left[p_n \leq p \mid p_n = p_{ni}\right] = Pr[p_n \leq p ] = G_n(p)$$
+
+\textit{proof: }\\
+\begin{equation*}
+    \begin{split}
+        Pr\left[p_n \leq p \mid p_n = p_{ni}\right]&=\frac{Pr[p_n \leq p \cap p_n = p_{ni}]}{Pr[p_n = p_{ni}]}\\
+        &=\frac{Pr[p_{ni} \leq p \cap p_n = p_{ni}]}{Pr[p_n = p_{ni}]}\\
+        &=\frac{1}{\pi_{ni}}\int_0^p \prod_{s\neq i}(1-G_{ns}(q))\diff G_{ni}(q)\\
+        &= \frac{\Phi_n}{T_i (c_i d_{ni})}\left(-T_i (c_i d_{ni})^{-\theta}\right) \frac{exp\left\{  \Phi_n q^\theta  \right\}}{\Phi_n} \Big|_{q^\theta = 0}^{q^\theta = p^\theta} \\
+        &=  -exp\left\{  \Phi_n q^\theta  \right\}\Big|_{q^\theta = 0}^{q^\theta = p^\theta}\\
+        &= 1-exp\left\{  \Phi_n p^\theta  \right\}\\
+        &= G_n(p)
+    \end{split}
+\end{equation*}
+
+
+\textbf{Property 3}
+$$p_n = \gamma\Phi_n^{-1/\theta}$$
+
+\textit{proof: }\\
+The price index can be derived by solving the following problem:
+$$\min \int_0^1 p(j)Q(j) \diff j \text{~~~~s.to~~~}\left( \int_0^1 Q(j)^{\frac{\sigma-1}{\sigma}} \right)^{\frac{\sigma}{\sigma-1}}$$
+and $$p_n =\left( \int_0^1 p(j)^{1-\sigma}\diff j\right)^{\frac{1}{1-\sigma}}$$
+The moment generating function for $x = -lnp$ is:
+$$E(e^{tx}) = \Phi^{t/\theta}\Gamma (1 - t/\theta)$$
+Therefore,
+$$E[p^{-t}]^{-1/t}=\Gamma(1-t/\theta)^{-1/t}\Phi^{-1/\theta}$$
+Replace t with $\sigma -1$,
+$$p_n = \left[ \Gamma \left(    \frac{\theta+1-\sigma}{\sigma} \right) \right]^{1/(1-\sigma)} \Phi_n^{-1/\theta}$$
+
+
+
+
+
+\end{document}
