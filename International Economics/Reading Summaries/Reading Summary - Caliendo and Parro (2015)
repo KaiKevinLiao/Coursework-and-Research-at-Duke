@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=3.5cm,right=3.5cm,top=2cm,bottom=2.5cm}
+
+\title{Reading Summary - NAFTA}
+\author{kai.liao }
+\date{March 2020}
+
+\begin{document}
+
+\maketitle
+
+Calindo and Parro (2015) adapt Eaton and Kortum (2002) with multiple sectors and intersectoral linkages. They also used 'hat algebra' to cancel out iceberg trade costs and states of technologies across countries. This model therefore can be used to estimate trade effects from exogenous change of trade policies. 
+
+This paper assumes that each intermediate good are produced by labor and composite intermediate goods of all sectors. Each composite intermediate good is an integration of the intermediate good within the sector. Countries can only export intermediate goods and import composite intermediate goods. The production of intermediate $\omega^j$ is
+\begin{equation}
+\begin{split}
+    q_n^j &= (z_n^j)(I_n^j)^{\gamma_n^j}\prod_{k=1}^J(m_n^{k,j})^{\gamma^{k,j}}\\
+    &= \textbf{TFP} \times \textbf{Labor} \times \textbf{Input Bundle}
+\end{split}
+\end{equation}
+
+The composite intermediate good follows CES structure. The market clearing for the composite intermediate good is given by:
+\begin{equation}
+    Q_n^j = C_n^j + \sum_{k=1}^{j} \int_0^J m_n^{j,k}\diff\omega^k
+\end{equation}
+
+Technology distribution, trade share, trade cost, and the equilibrium are follow E-K framework. This paper introduce 'hat-algebra', for example, $\hat{X} = X'/X$, to close the model much easier. We can see the benefit of 'hat-algebra' in the following example:\\
+Previously, the price index is given by
+\begin{equation}
+    P_n^j = A^j \left[ \sum_{i = 1}^N\lambda_i^j (c_i^j\kappa_{ni}^j)^{-\theta^j}\right]^{-1/\theta^j}
+\end{equation}
+After computing $\hat{P_n^j} = P_n^j'/P_n^j$, we have
+\begin{equation}
+    \hat{P_n^j} = \left[ \sum_{i = 1}^N\pi_{nh}^j (\hat{c}_i^j\hat{\kappa}_{ni}^j)^{-\theta^j}\right]^{-1/\theta^j}
+\end{equation}
+where $\pi_{nh}$ are data and $\hat{\kappa}_{ni}^j$ only depend on tariff.
+
+Remember that we are interested in estimating $\theta$ as trade elasticity.
+\begin{equation}
+    \frac{X_{ni}^jX_{ih}^jX_{hn}^j}{X_{nh}^jX_{hi}^jX_{in}^j} = \left(\frac{\kappa_{ni}^j\kappa_{ih}^j\kappa_{hn}^j}{\kappa_{nh}^j\kappa_{hi}^j\kappa_{in}^j}\right)^{\theta^j}
+\end{equation}
+$\kappa$ here can be replaced by $\tau$ and structural residuals. 
+
+
+\end{document}
