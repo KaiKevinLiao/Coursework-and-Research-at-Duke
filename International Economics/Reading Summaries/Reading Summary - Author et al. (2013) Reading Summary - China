@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\usepackage{bbm}
+\geometry{left=3.5cm,right=3.5cm,top=2cm,bottom=2.5cm}
+
+\title{Reading Summary - China}
+\author{kai.liao }
+\date{April 2020}
+
+\begin{document}
+
+\maketitle
+
+The paper analyzes the effect of rising Chinese import competition on US local labor markets. Between 1990 and 2007, we have seen a dramatic decrease in manufacturing employment in the US and increase in China import penetration ratio. However, the relation between US employment and import from China is vague because automation may lead to similar decline in manufacturing employment. This paper solve this problem, together with other identification treat by exploiting cross-market variation in import exposure and instrumenting for US imports using changes in Chinese imports by other high-income countries. \\
+
+\textit{\textbf{Identification Strategy}}\\
+
+The change in Chinese import exposure per worker in a region is given b
+\begin{equation}
+    \Delta IPW_{uit} = \sum_j \frac{L_{igt}}{L_{ujt}}\frac{\Delta M_{ucjt}}{L_{it}}
+\end{equation}
+where $\Delta M_{ucjt}$ is the observed change in US imports from China in industry j between the period.
+
+Regress the decadal change in the manufacturing employment share of the working-age population on Chinese import exposure per worker in a region
+\begin{equation}
+    \Delta L_{it}^{m} = \gamma_t + \beta_1\Delta IPW_{uit}+\X_{it}'\beta_2+e_{it}
+\end{equation} 
+$IPW_{uit}$ can be replaced by an instrument $IPW_{uit}$
+\begin{equation}
+    \Delta IPW_{oit} = \sum_j \frac{L_{igt-1}}{L_{ujt-1}}\frac{\Delta M_{ocjt}}{L_{it-1}}
+\end{equation}\\
+
+\textit{\textbf{Concerns}}\\
+
+1. Facing negative demand shock, the unemployment of US and the import from China would decrease simultaneously, making the negative effect on US manufacture labors underestimated. This concern is addressed by using a relatively long period of time and using instruments. 
+
+2. The productivity shocks in US may be driving growth in imports from China, though the productivity growth in China is significantly greater than US and the rest of world.
+
+3. Growth in imports from China may reflect technology shocks common to high-income countries that
+adversely affect their labor-intensive industries, making them vulnerable to Chinese
+competition. \\
+
+The rest of this paper uses other dependent variables, for example wages, and control variables to estimate this effect. What's more, they also use alternative ways to characterize the growth in imports per worker and conduct robustness check. 
+\end{document}
