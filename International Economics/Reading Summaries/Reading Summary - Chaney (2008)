@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\title{Reading Summary - Chaney (2008)}
+\author{kai.liao }
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+
+Chaney (2008) adds firm heterogeneity and fixed costs of exporting to Krugman (1980) model. And this model introduces two margin of adjustment: the intensive margin and the extensive margin. The intensive margin is the size of export of each exporters and the extensive margin is the adjustment of the sets of exporters. A higher elasticity makes the intensive margin more sensitive to changes in trade barriers, whereas it makes the
+extensive margin less sensitive. He further shows that when the productivity across firms is Pareto, the effect on the extensive margin dominates. And the total export are given by
+\begin{equation}
+    Export_{AB} = Constant * \frac{GDP_A*GDP_B}{(Trade~ Barriers_{AB})^{\epsilon(\sigma)}}
+\end{equation}
+He also shows two simple equations to illustrate the elasticity of trade flows with respect to variable trade costs. Let $\zeta$ be the elasticity of trade flows with respect to variable trade costs and $\xi$ be the  the elasticity of trade flows with respect to fixed costs,
+\begin{equation}
+    \zeta = -\frac{d\ln{X_{ij}}}{d\ln{\tau_{ij}}} = (\sigma-1) + (\gamma - (\sigma -1)) = \gamma
+\end{equation}
+\begin{equation}
+    \xi = -\frac{d\ln{X_{ij}}}{d\ln{f_{ij}}} = 0 + \frac{\gamma}{\sigma-1}-1
+\end{equation}
+The equations (2) and (3) shows the main story of this paper: when s is low, trade barriers have little impact on the intensive margin of trade, but have more impact on the extensive margin of trade. To be specific, the extensive margin is strongly affected by trade barriers when $\sigma$ is low.
+\end{document}
